@@ -15,13 +15,15 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('login', [LoginController::class, 'login']);
-Route::get('logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('test', function () {
-    return 'test';
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'login']);
+});
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('logout', [LoginController::class, 'logout']);
 });
