@@ -20,10 +20,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('check', [LoginController::class, 'check']);
+
+
 Route::middleware('guest')->group(function () {
-    Route::get('login', [LoginController::class, 'login']);
+    Route::post('login', [LoginController::class, 'login']);
 });
 
+Route::post('logout', [LoginController::class, 'logout']);
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('logout', [LoginController::class, 'logout']);
 });

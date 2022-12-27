@@ -18,7 +18,17 @@ class LoginController extends Controller
         }
     }
 
-    public function logout (Request $request) {
-        return Auth::logout();
+    public function logout () {
+        try {
+            Auth::logout();
+            return response()->json(['status' => true]);
+        } catch (\Exception $e) {
+            report($e);
+            return response()->json(['status' => false]);
+        }
+    }
+
+    public function check () {
+        return Auth::check();
     }
 }

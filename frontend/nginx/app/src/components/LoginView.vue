@@ -1,32 +1,34 @@
 <script setup>
 import axios from "axios";
-import { ref } from "vue";
+import { useRouter } from 'vue-router';
+import { ref, onMounted } from "vue";
 
+const router = useRouter();
 const user = ref();
-const status = ref();
-const baseUrl = 'http://localhost:8888/LaravelGoutte/public';
+const validate_message = ref();
+const baseUrl = 'http://localhost:8000';
 
 const http = axios.create({
   baseURL: baseUrl,
   withCredentials: true,
 });
 
-const test = async () => {
-  try {
-    let test = await axios.get('http://localhost:8000/api/test');
-    console.log(test);
-  } catch (e) {
-    console.log(e)
-  }
-}
+onMounted(async () => {
+  console.log("on mount");
+  let checked = await http.get('/api/check');
+  if (checked.data) {
+    router.push('/');
+  } 
+});
 
-const login = async () => {
+const login = async (name) => {
   try {
     await http.get('/sanctum/csrf-cookie');
-    await http.post('/api/login', { name : 'test' });
-    status.value = 'loggedIn';
+    let tst = await http.post('/api/login', { name: name });
+    console.log(tst);
   } catch (e) {
     console.log(e);
+    validate_message.value = 'ログインできませんでした';
   }
 }
 
@@ -43,22 +45,16 @@ const getUser = () => {
 const logout = async () => {
   await http.post('/api/logout');
   user.value = null;
-  status.value = 'loggedOut';
 }
 </script>
 
 <template>
-  <h1>
-    認証テスト<br>
-    BaseURL -> {{ baseUrl }}
-  </h1>
-  <button @click="login()">login</button>
+  <button @click="login('user')">login</button>
   <button @click="getUser()">getUser</button>
   <button @click="logout()">logout</button>
-  <button @click="test()">test</button>
+  {{ validate_message }}
   <br>
   <br>
-  <p>{{ 'status : ' + status }}</p>
   <br>
   <p v-for="(value, key) in user" :key=key>{{ key + ' : ' + value }}</p>
 </template>
