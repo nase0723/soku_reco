@@ -12,3 +12,8 @@ git checkout -b test origin/test
 [Laravelのプロジェクトをgit cloneしたときの手順](http://vdeep.net/laravel-git-clone)
 
 [laravel API バリデーション結果をjsonで返す](https://zenn.dev/moroshi/articles/56d02e4b9cabe0)
+
+
+LINE ライブラリ
+composer require laravel/socialite
+composer require socialiteproviders/line
