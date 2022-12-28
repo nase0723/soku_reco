@@ -13,14 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('matters', function (Blueprint $table) {
+        Schema::create('places', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('place_id');
-            $table->string('name')->nullable();
-            $table->integer('street_value')->nullable();
-            $table->integer('age')->nullable();
-            $table->string('work')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -32,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('matters');
+        Schema::dropIfExists('places');
     }
 };
