@@ -10,7 +10,7 @@ use App\Models\User;
 class LoginController extends Controller
 {
     public function login (Request $request) {
-        $user = User::where($request->only($request->name));
+        $user = User::where($request->only('name'));
         if ($user->exists()) {
             return response()->json(['status' => true, 'user' => Auth::loginUsingId($user->first()->id, true)], 200);
         } else {

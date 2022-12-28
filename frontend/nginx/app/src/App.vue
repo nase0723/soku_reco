@@ -1,10 +1,12 @@
 <script setup>
-// import HelloWorld from './components/HelloWorld.vue'
+import HeaderComponent from './components/layouts/HeaderComponent.vue'
+import FooterComponent from './components/layouts/FooterComponent.vue'
 </script>
 
 <template>
-  <router-link :to="{name : 'login'}">login page</router-link>
-  <router-view></router-view>
+    <HeaderComponent/>
+    <router-view></router-view>
+    <FooterComponent/>
 </template>
 
 <style scoped>

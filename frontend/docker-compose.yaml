@@ -1,6 +1,19 @@
 version: '3'
 services:
+  # https-portal:
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '80:80'
+  #     - '443:443'
+  #   restart: always
+  #   environment:
+  #     DOMAINS: 'localhost -> http://web:8080'
+  #     STAGE: 'local'
+  #   volumes:
+  #   - ./nginx/org-chimata-ssl-certs:/var/lib/https-portal
   nginx:
     build: ./nginx
     ports:
       - "8080:80"
+# volumes:
+#   https-portal-data:
