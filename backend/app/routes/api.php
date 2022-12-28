@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\MatterController;
+use App\Http\Controllers\PlaceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,5 @@ Route::post('logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('matters', MatterController::class);
+    Route::resource('places', PlaceController::class, ['only' => ['index']]);
 });

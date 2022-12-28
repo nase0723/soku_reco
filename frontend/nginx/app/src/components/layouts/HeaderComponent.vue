@@ -23,7 +23,8 @@ const logout = async () => {
                 </a>
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li><a href="/" class="nav-link px-4 text-white">SOKU-RECO</a></li>
+                    <!-- <li><a href="/" class="nav-link px-4 text-white display-2">SOKU-RECO</a></li> -->
+                    <li class="ext-white display-1">SOKU-RECO</li>
                     <!-- <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
                     <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
