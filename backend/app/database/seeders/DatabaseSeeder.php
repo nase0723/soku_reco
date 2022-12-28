@@ -24,7 +24,6 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call(MatterSeeder::class);
-        $this->call(PlacesSeeder::class);
         $this->call(UserSeeder::class);
     }
 }

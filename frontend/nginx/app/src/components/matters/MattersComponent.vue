@@ -10,34 +10,32 @@ const http = axios.create({
 });
 
 const matters = ref();
-const places = ref();
+const fiveMatters = ref();
+const newMatter = ref({});
 
-onBeforeMount(async () => {
+onBeforeMount(() => {
     getMatters();
-    getPlaces();
-    //   let checked = await http.get('/api/check');
-    //   if (checked.data) {
-    //     router.push('/');
-    //   } 
 });
 
 const getMatters = async () => {
     try {
         const response = await http.get('/api/matters');
         matters.value = response.data.matters;
+        fiveMatters.value = matters.value.slice(0, 5);
     } catch (e) {
         console.log(e);
     }
 }
 
-const getPlaces = async () => {
+const createMatter = async () => {
     try {
-        const response = await http.get('/api/places');
-        places.value = response.data.places;
+        console.log(newMatter.value);
+        const response = await http.post('/api/matters', {matter : newMatter.value});
     } catch (e) {
-        console.log(e);
+
     }
 }
+
 </script>
 
 <template>
@@ -70,7 +68,7 @@ const getPlaces = async () => {
             <tr v-for="matter in matters">
                 <td class="text-center">{{ matter.name }}</td>
                 <td class="text-center">{{ matter.age }}</td>
-                <td class="text-center">{{ matter.place.name }}</td>
+                <td class="text-center">{{ matter.place }}</td>
                 <td class="text-center">{{ matter.name }}</td>
                 <td class="text-center">
                     <button class="btn btn-outline-light">詳細</button>
@@ -88,47 +86,52 @@ const getPlaces = async () => {
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <div class="row mb-3">
-                        <div class="col-2">
-                            <label for="inputName" class="col-form-label">名前</label>
+                    <form @submit.prevent="createMatter">
+
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label for="inputName" class="col-form-label">名前</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" v-model="newMatter.name" class="form-control" id="inputName">
+                            </div>
                         </div>
-                        <div class="col-10">
-                            <input type="text" name="name" class="form-control" id="inputName">
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label for="inputWork" class="col-form-label">年齢</label>
+                            </div>
+                            <div class="col-10">
+                                <select v-model="newMatter.age" class="form-select">
+                                    <option value="">不明</option>
+                                    <option :value="i + 17" v-for="i in 18">{{ i + 17 }}</option>
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-2">
-                            <label for="inputWork" class="col-form-label">年齢</label>
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label for="inputPlace" class="col-form-label">場所</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" v-model="newMatter.place" class="form-control" list="places" id="inputPlace">
+                                <datalist id="places">
+                                    <option :value="matter.place" v-for="matter in fiveMatters"></option>
+                                </datalist>
+                            </div>
                         </div>
-                        <div class="col-10">
-                            <select name="age" class="form-select">
-                                <option value="">不明</option>
-                                <option :value="i + 17" v-for="i in 18">{{ i + 17 }}</option>
-                            </select>
+                        <div class="row mb-3">
+                            <div class="col-2">
+                                <label for="inputWork" class="col-form-label">職業</label>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" v-model="newMatter.work" class="form-control" id="inputWork">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-2">
-                            <label for="inputPlace" class="col-form-label">場所</label>
+                        <div class="row mt-3">
+                            <button type="submit" class="btn btn-dark mx-auto w-50">登録</button>
                         </div>
-                        <div class="col-10">
-                            <input type="text" name="place" class="form-control" list="places" id="inputPlace">
-                            <datalist id="places">
-                                <option :value="place.name" v-for="place in places"></option>
-                            </datalist>
-                        </div>
-                    </div>
-                    <div class="row mb-3">
-                        <div class="col-2">
-                            <label for="inputWork" class="col-form-label">職業</label>
-                        </div>
-                        <div class="col-10">
-                            <input type="text" name="work" class="form-control" id="inputWork">
-                        </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary mx-auto">登録</button>
                 </div>
             </div>
         </div>

@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('matters', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->integer('place_id');
+            $table->string('place')->nullable();
             $table->string('name')->nullable();
             $table->integer('street_value')->nullable();
             $table->integer('age')->nullable();

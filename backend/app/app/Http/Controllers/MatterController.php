@@ -17,7 +17,7 @@ class MatterController extends Controller
      */
     public function index()
     {
-        $matters = Matter::with('place')->where('user_id', Auth::id())->get();
+        $matters = Matter::where('user_id', Auth::id())->get();
         // logger()->debug($matters->toarray());
         return response()->json(['status' => true, 'matters' => $matters], 200);
     }
@@ -40,7 +40,10 @@ class MatterController extends Controller
      */
     public function store(StoreMatterRequest $request)
     {
-        //
+        $data = $request->matter;
+        $data['user_id'] = Auth::id();
+        $matter = Matter::create($data);
+        return response()->json(['status' => true, 'matter' => $matter], 200);
     }
 
     /**

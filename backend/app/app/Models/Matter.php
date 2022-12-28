@@ -11,8 +11,8 @@ class Matter extends Model
 
     protected $guarded = ['id'];
 
-    public function place()
-    {
-        return $this->belongsTo(Place::class);
-    }
+    // public function place()
+    // {
+    //     return $this->belongsTo(Place::class);
+    // }
 }

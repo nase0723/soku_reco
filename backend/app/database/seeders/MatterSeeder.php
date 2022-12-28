@@ -19,7 +19,7 @@ class MatterSeeder extends Seeder
         for ($i = 1; $i < 4; $i++) {
             Matter::create([
                 'name' => Str::random(4),
-                'place_id' => $i,
+                'place' => ['アトム', 'ハブ', 'ストリート'][$i -1],
                 'user_id' => 1,
                 'street_value' => $i,
                 'age' => 21,
