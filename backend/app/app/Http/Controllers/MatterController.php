@@ -17,7 +17,7 @@ class MatterController extends Controller
      */
     public function index()
     {
-        $matters = Matter::where('user_id', Auth::id())->get();
+        $matters = Matter::where('user_id', Auth::id())->latest()->get();
         // logger()->debug($matters->toarray());
         return response()->json(['status' => true, 'matters' => $matters], 200);
     }
