@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreMatterRequest;
 use App\Http\Requests\UpdateMatterRequest;
+use Illuminate\Http\Request;
 use App\Models\Matter;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -15,10 +16,10 @@ class MatterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $matters = Matter::where('user_id', Auth::id())->latest()->get();
-        // logger()->debug($matters->toarray());
+        logger()->debug($request->all());
+        $matters = Matter::where('user_id', Auth::id())->orderBy($request->column, $request->type)->get();
         return response()->json(['status' => true, 'matters' => $matters], 200);
     }
 

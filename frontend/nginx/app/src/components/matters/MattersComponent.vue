@@ -13,23 +13,28 @@ const matters = ref();
 const fiveMatters = ref();
 const newMatter = ref({});
 const modal = ref({});
+const selectedSortColumn = ref('created_at');
+const columnsForSort = {
+    created_at: { type: 'desc', name: '登録日' },
+    street_value: { type: 'desc', name: 'スト値' },
+    age: { type: 'asc', name: '年齢' },
+};
 
 onBeforeMount(() => {
-    getMatters();
+    getMatters({ column: 'created_at', type: 'desc' });
     initModal();
 });
 
 const initModal = () => {
     newMatter.value = {}
     modal.value.status = 1;
-    console.log(modal.value.status);
 };
 
 const closeModal = () => document.getElementById('btnCloseModal').click();
 
-const getMatters = async () => {
+const getMatters = async (orderBy) => {
     try {
-        const response = await http.get('/api/matters');
+        const response = await http.get(`/api/matters?column=${orderBy.column}&type=${orderBy.type}`);
         matters.value = response.data.matters;
         fiveMatters.value = matters.value.slice(0, 5);
     } catch (e) {
@@ -41,8 +46,7 @@ const createMatter = async () => {
     try {
         const response = await http.post('/api/matters', { matter: newMatter.value });
         if (response.status == 200) {
-            getMatters();
-            // closeModal();
+            getMatters({ column: 'created_at', type: 'desk' });
             modal.value.status = 2;
         }
     } catch (e) {
@@ -50,21 +54,29 @@ const createMatter = async () => {
     }
 }
 
+const sortMatters = () => {
+    let column = selectedSortColumn.value;
+    let type = columnsForSort[selectedSortColumn.value].type;
+    getMatters({ column: column, type: type });
+}
+
 </script>
 
 <template>
+    <br>
+    <br>
+    <br>
     <div class="container mt-3 mb-3">
-        <div class="row">
-            <div class="col-4 text-center">
-                <select class="form-select form-select-sm">
-                    <option value="created_at">登録日順</option>
-                    <option value="street_value">スト値順</option>
-                    <option value="age">年齢順</option>
+        <div class="row justify-content-between">
+            <div class="col-5">
+                <select class="form-select" @change="sortMatters" v-model="selectedSortColumn">
+                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name }}順</option>
                 </select>
             </div>
-            <div class="col-4 text-center">
-                <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#staticBackdrop"
-                    @click="initModal">新規登録</button>
+            <div class="col-3">
+                <button type="button" class="btn btn-dark rounded-circle p-0"
+                    style="width:4rem; height:4rem; font-size:35px;" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop" @click="initModal">＋</button>
             </div>
         </div>
     </div>
@@ -72,8 +84,8 @@ const createMatter = async () => {
         <thead>
             <tr>
                 <th class="text-center">名前</th>
-                <th class="text-center">年齢</th>
                 <th class="text-center">場所</th>
+                <th class="text-center">年齢</th>
                 <th class="text-center">登録日</th>
                 <th class="text-center">詳細</th>
             </tr>
@@ -98,7 +110,11 @@ const createMatter = async () => {
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ {1 : '基本情報入力', 2 : '登録完了しました', 3 : '詳細情報入力'}[modal.status] }}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{ {
+        1: '基本情報入力', 2: '登録完了しました', 3:
+            '詳細情報入力'
+    }[modal.status]
+}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         id="btnCloseModal"></button>
                 </div>
@@ -146,18 +162,20 @@ const createMatter = async () => {
                 </div>
                 <div class="modal-body" v-if="modal.status === 2">
                     <div class="row mb-3">
-                        <button type="button" class="btn btn-dark w-50 mx-auto" @click="modal.status = 3">続けて詳細情報入力</button>
+                        <button type="button" class="btn btn-dark w-50 mx-auto"
+                            @click="modal.status = 3">続けて詳細情報入力</button>
                     </div>
                     <div class="row mb-3">
                         <button type="button" class="btn btn-dark w-50 mx-auto" @click="closeModal()">一覧へ戻る</button>
                     </div>
                 </div>
                 <div class="modal-body" v-if="modal.status === 3">
-                    
+
                 </div>
                 <div class="modal-footer">
                 </div>
             </div>
         </div>
     </div>
+
 </template>
