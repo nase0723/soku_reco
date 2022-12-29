@@ -13,11 +13,12 @@ const matters = ref();
 const fiveMatters = ref();
 const newMatter = ref({});
 const modal = ref({});
+const errors = ref();
 const selectedSortColumn = ref('created_at');
 const columnsForSort = {
-    created_at: { type: 'desc', name: '登録日', expression : '新しい順' },
-    street_value: { type: 'desc', name: 'スト値', expression : '高い順' },
-    age: { type: 'asc', name: '年齢', expression : '若い順' },
+    created_at: { type: 'desc', name: '登録日', expression: '新しい順' },
+    street_value: { type: 'desc', name: 'スト値', expression: '高い順' },
+    age: { type: 'asc', name: '年齢', expression: '若い順' },
 };
 
 onBeforeMount(() => {
@@ -27,6 +28,7 @@ onBeforeMount(() => {
 
 const initModal = () => {
     newMatter.value = {}
+    errors.value = {};
     modal.value.status = 1;
 };
 
@@ -44,13 +46,13 @@ const getMatters = async (orderBy) => {
 
 const createMatter = async () => {
     try {
-        const response = await http.post('/api/matters', { matter: newMatter.value });
+        const response = await http.post('/api/matters', newMatter.value);
         if (response.status == 200) {
             getMatters({ column: 'created_at', type: 'desc' });
             modal.value.status = 2;
         }
     } catch (e) {
-        console.log(e);
+        errors.value = e.response.data.errors;
     }
 }
 
@@ -68,7 +70,9 @@ const sortMatters = () => {
         <div class="row justify-content-between">
             <div class="col-7">
                 <select class="form-select" @change="sortMatters" v-model="selectedSortColumn">
-                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' + value.expression }}</option>
+                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' +
+        value.expression
+}}</option>
                 </select>
             </div>
             <div class="col-3">
@@ -93,12 +97,13 @@ const sortMatters = () => {
                 <td class="text-center">{{ matter.place }}</td>
                 <td class="text-center">
                     {{
-                        {
-                            created_at : `${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}`,
-                            street_value : matter.street_value,
-                            age : matter.age,
-                        }[selectedSortColumn]
-                    }}
+        {
+            created_at: `${(new Date(matter.created_at)).getMonth() + 1}/${(new
+                Date(matter.created_at)).getDate()}`,
+            street_value: matter.street_value,
+            age: matter.age,
+        }[selectedSortColumn]
+}}
                 </td>
                 <td class="text-center">
                     <button class="btn btn-outline-light">詳細</button>
@@ -154,6 +159,7 @@ const sortMatters = () => {
                             </div>
                         </div>
                         <br>
+                        <div class="alert alert-danger" role="alert" v-for="error in errors">{{ error[0] }}</div>
                         <div class="row mt-3">
                             <button type="submit" class="btn btn-dark mx-auto w-50">登録</button>
                         </div>

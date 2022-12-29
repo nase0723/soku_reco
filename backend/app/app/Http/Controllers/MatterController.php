@@ -18,7 +18,6 @@ class MatterController extends Controller
      */
     public function index(Request $request)
     {
-        logger()->debug($request->all());
         $matters = Matter::where('user_id', Auth::id())->orderBy($request->column, $request->type)->get();
         return response()->json(['status' => true, 'matters' => $matters], 200);
     }
@@ -41,7 +40,7 @@ class MatterController extends Controller
      */
     public function store(StoreMatterRequest $request)
     {
-        $data = $request->matter;
+        $data = $request->all();
         $data['user_id'] = Auth::id();
         $matter = Matter::create($data);
         return response()->json(['status' => true, 'matter' => $matter], 200);
