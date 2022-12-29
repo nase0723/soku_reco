@@ -72,7 +72,7 @@ const sortMatters = () => {
                 </select>
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-dark rounded-circle p-0"
+                <button type="button" class="btn btn-info rounded-circle p-0"
                     style="width:4rem; height:4rem; font-size:35px;" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop" @click="initModal">＋</button>
             </div>
@@ -123,14 +123,14 @@ const sortMatters = () => {
                 <div class="modal-body" v-if="modal.status === 1">
                     <form @submit.prevent="createMatter">
                         <div class="row mb-3">
-                            <div class="col-2">
+                            <div class="col-3">
                                 <label for="inputName" class="col-form-label">名前</label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <input type="text" v-model="newMatter.name" class="form-control" id="inputName">
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <div class="col-2">
                                 <label for="inputWork" class="col-form-label">年齢</label>
                             </div>
@@ -140,18 +140,15 @@ const sortMatters = () => {
                                     <option :value="i + 17" v-for="i in 18">{{ i + 17 }}</option>
                                 </select>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="row mb-3">
-                            <div class="col-2">
+                            <div class="col-3">
                                 <label for="inputPlace" class="col-form-label">場所</label>
                             </div>
-                            <div class="col-10">
+                            <div class="col-9">
                                 <input type="text" v-model="newMatter.place" class="form-control" list="places"
                                     id="inputPlace">
                                 <datalist id="places">
-                                    <!-- <template v-for="(matter, key) in fiveMatters" :key=key>
-                                        <option :value="matter.place" v-if="fiveMatters[key -1].place != matter.place"></option>
-                                    </template> -->
                                     <option :value="matter.place" v-for="matter in fiveMatters"></option>
                                 </datalist>
                             </div>

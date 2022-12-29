@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('matters', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->string('place')->nullable();
             $table->string('name')->nullable();
-            $table->integer('street_value')->nullable();
+            $table->string('place')->nullable();
             $table->integer('age')->nullable();
+            $table->string('address')->nullable();
+            $table->integer('street_value')->nullable();
             $table->string('work')->nullable();
             $table->timestamps();
         });
