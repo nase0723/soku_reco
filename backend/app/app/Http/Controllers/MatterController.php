@@ -42,8 +42,8 @@ class MatterController extends Controller
     {
         $data = $request->all();
         $data['user_id'] = Auth::id();
-        $matter = Matter::create($data);
-        return response()->json(['status' => true, 'matter' => $matter], 200);
+        $created = Matter::create($data);
+        return response()->json(['status' => true, 'matter' => $created], 200);
     }
 
     /**

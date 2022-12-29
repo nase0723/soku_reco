@@ -13,6 +13,7 @@ const matters = ref();
 const fiveMatters = ref();
 const newMatter = ref({});
 const newMatterDetails = ref({});
+const createdMatter = ref();
 const modal = ref({});
 const errors = ref();
 const selectedSortColumn = ref('created_at');
@@ -49,6 +50,7 @@ const createMatter = async () => {
     try {
         const response = await http.post('/api/matters', newMatter.value);
         if (response.status == 200) {
+            createdMatter.value = response.data.matter;
             getMatters({ column: 'created_at', type: 'desc' });
             modal.value.status = 2;
         }
@@ -59,7 +61,7 @@ const createMatter = async () => {
 
 const createMatterDetails = async () => {
     try {
-        const response = await http.post('/api/matters', newMatterDetails.value);
+        const response = await http.put('/api/matters', newMatterDetails.value);
         if (response.status == 200) {
             getMatters({ column: 'created_at', type: 'desc' });
             closeModal();
@@ -174,15 +176,55 @@ const sortMatters = () => {
                 <div class="modal-body" v-if="modal.status === 3">
                     <form @submit.prevent="createMatterDetails">
                         <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputWork" class="col-form-label">年齢</label>
+                            <div class="col-3">
+                                <label class="col-form-label">名前</label>
                             </div>
-                            <div class="col-10">
-                                <select v-model="newMatterDetails.age" class="form-select">
+                            <div class="col-9">
+                                <input type="text" :value="createdMatter.name" class="form-control" disabled>
+                                <!-- {{ createdMatter.name }} -->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="street_value" class="col-form-label">スト値</label>
+                            </div>
+                            <div class="col-9">
+                                <select v-model="newMatterDetails.street_value" class="form-select" id="street_value">
+                                    <option :value="i" v-for="i in 10">{{ i }}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="inputAge" class="col-form-label">年齢</label>
+                            </div>
+                            <div class="col-9">
+                                <select v-model="newMatterDetails.age" class="form-select" id="inputAge">
                                     <option value="">不明</option>
                                     <option :value="i + 17" v-for="i in 18">{{ i + 17 }}</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="inputAddress" class="col-form-label">住み</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" v-model="newMatter.address" class="form-control" id="inputAddress">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="inputWork" class="col-form-label">仕事</label>
+                            </div>
+                            <div class="col-9">
+                                <input type="text" v-model="newMatter.work" class="form-control" id="inputWork">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="alert alert-danger" role="alert" v-for="error in errors">{{ error[0] }}</div>
+                        <div class="row mt-3">
+                            <button type="submit" class="btn btn-dark mx-auto w-50">登録</button>
                         </div>
                     </form>
                 </div>
