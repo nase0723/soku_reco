@@ -15,9 +15,9 @@ const newMatter = ref({});
 const modal = ref({});
 const selectedSortColumn = ref('created_at');
 const columnsForSort = {
-    created_at: { type: 'desc', name: '登録日' },
-    street_value: { type: 'desc', name: 'スト値' },
-    age: { type: 'asc', name: '年齢' },
+    created_at: { type: 'desc', name: '登録日', expression : '新しい順' },
+    street_value: { type: 'desc', name: 'スト値', expression : '高い順' },
+    age: { type: 'asc', name: '年齢', expression : '若い順' },
 };
 
 onBeforeMount(() => {
@@ -46,7 +46,7 @@ const createMatter = async () => {
     try {
         const response = await http.post('/api/matters', { matter: newMatter.value });
         if (response.status == 200) {
-            getMatters({ column: 'created_at', type: 'desk' });
+            getMatters({ column: 'created_at', type: 'desc' });
             modal.value.status = 2;
         }
     } catch (e) {
@@ -68,9 +68,9 @@ const sortMatters = () => {
     <br>
     <div class="container mt-3 mb-3">
         <div class="row justify-content-between">
-            <div class="col-5">
+            <div class="col-7">
                 <select class="form-select" @change="sortMatters" v-model="selectedSortColumn">
-                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name }}順</option>
+                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' + value.expression }}</option>
                 </select>
             </div>
             <div class="col-3">
@@ -85,19 +85,23 @@ const sortMatters = () => {
             <tr>
                 <th class="text-center">名前</th>
                 <th class="text-center">場所</th>
-                <th class="text-center">年齢</th>
-                <th class="text-center">登録日</th>
+                <th class="text-center">{{ columnsForSort[selectedSortColumn].name }}</th>
                 <th class="text-center">詳細</th>
             </tr>
         </thead>
         <tbody>
             <tr v-for="matter in matters">
                 <td class="text-center">{{ matter.name }}</td>
-                <td class="text-center">{{ matter.age }}</td>
                 <td class="text-center">{{ matter.place }}</td>
-                <td class="text-center">{{ `${(new Date(matter.created_at)).getMonth() + 1}/${(new
-        Date(matter.created_at)).getDate()}`
-}}</td>
+                <td class="text-center">
+                    {{
+                        {
+                            created_at : `${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}`,
+                            street_value : matter.street_value,
+                            age : matter.age,
+                        }[selectedSortColumn]
+                    }}
+                </td>
                 <td class="text-center">
                     <button class="btn btn-outline-light">詳細</button>
                 </td>
@@ -172,8 +176,8 @@ const sortMatters = () => {
                 <div class="modal-body" v-if="modal.status === 3">
 
                 </div>
-                <div class="modal-footer">
-                </div>
+                <!-- <div class="modal-footer">
+                </div> -->
             </div>
         </div>
     </div>

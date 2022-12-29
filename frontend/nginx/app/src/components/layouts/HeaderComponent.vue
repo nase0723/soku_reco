@@ -46,7 +46,7 @@ const logout = async () => {
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                     aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">Darkオフキャンバス</h5>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">SOKU-RECO</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                             aria-label="閉じる"></button>
                     </div>
@@ -74,8 +74,8 @@ const logout = async () => {
                             </li>
                         </ul>
                         <form class="d-flex mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="検索" aria-label="検索">
-                            <button class="btn btn-success flex-shrink-0" type="submit">検索</button>
+                            <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索">
+                            <button class="btn btn-outline-light flex-shrink-0" type="submit">検索</button>
                         </form>
                     </div>
                 </div>
