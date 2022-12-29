@@ -3,7 +3,10 @@ import axios from "axios";
 import { useRouter } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
 
-const baseUrl = 'http://localhost:8000';
+const props = defineProps({
+    baseUrl: String,
+})
+const baseUrl = props.baseUrl
 const router = useRouter();
 const http = axios.create({
     baseURL: baseUrl,

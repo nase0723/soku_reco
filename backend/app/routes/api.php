@@ -33,5 +33,5 @@ Route::post('logout', [LoginController::class, 'logout']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('matters', MatterController::class);
-    Route::resource('places', PlaceController::class, ['only' => ['index']]);
+    // Route::resource('places', PlaceController::class, ['only' => ['index']]);
 });

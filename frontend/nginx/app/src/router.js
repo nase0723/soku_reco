@@ -3,7 +3,7 @@ import LoginView from "./components/LoginView.vue";
 import MattersComponent from "./components/matters/MattersComponent.vue";
  
 const routes = [
-    { path: '/', name: 'matters', component: MattersComponent },
+    { path: '/', name: 'matters', component: MattersComponent, props: true },
     { path: '/login', name: 'login', component: LoginView },
 ]
  

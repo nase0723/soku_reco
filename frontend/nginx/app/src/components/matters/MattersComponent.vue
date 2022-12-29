@@ -2,7 +2,10 @@
 import axios from "axios";
 // import { useRouter } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
-const baseUrl = 'http://localhost:8000';
+const props = defineProps({
+    baseUrl: String,
+})
+const baseUrl = props.baseUrl
 
 const http = axios.create({
     baseURL: baseUrl,
@@ -61,7 +64,7 @@ const createMatter = async () => {
 
 const createMatterDetails = async () => {
     try {
-        const response = await http.put('/api/matters', newMatterDetails.value);
+        const response = await http.put('/api/matters/' + createdMatter.value.id, newMatterDetails.value);
         if (response.status == 200) {
             getMatters({ column: 'created_at', type: 'desc' });
             closeModal();
@@ -181,7 +184,6 @@ const sortMatters = () => {
                             </div>
                             <div class="col-9">
                                 <input type="text" :value="createdMatter.name" class="form-control" disabled>
-                                <!-- {{ createdMatter.name }} -->
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -210,7 +212,7 @@ const sortMatters = () => {
                                 <label for="inputAddress" class="col-form-label">住み</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" v-model="newMatter.address" class="form-control" id="inputAddress">
+                                <input type="text" v-model="newMatterDetails.address" class="form-control" id="inputAddress">
                             </div>
                         </div>
                         <div class="row mb-3">
@@ -218,7 +220,7 @@ const sortMatters = () => {
                                 <label for="inputWork" class="col-form-label">仕事</label>
                             </div>
                             <div class="col-9">
-                                <input type="text" v-model="newMatter.work" class="form-control" id="inputWork">
+                                <input type="text" v-model="newMatterDetails.work" class="form-control" id="inputWork">
                             </div>
                         </div>
                         <br>

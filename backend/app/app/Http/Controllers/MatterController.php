@@ -75,9 +75,9 @@ class MatterController extends Controller
      * @param  \App\Models\Matter  $matter
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateMatterRequest $request, Matter $matter)
+    public function update(UpdateMatterRequest $request, $id)
     {
-        //
+        return Matter::find($id)->update($request->all());
     }
 
     /**

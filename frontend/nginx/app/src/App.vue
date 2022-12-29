@@ -1,11 +1,13 @@
 <script setup>
 import HeaderComponent from './components/layouts/HeaderComponent.vue'
 import FooterComponent from './components/layouts/FooterComponent.vue'
+
+const baseUrl = 'http://localhost:8000';
 </script>
 
 <template>
-    <HeaderComponent/>
-    <router-view></router-view>
+    <HeaderComponent :baseUrl="baseUrl"/>
+    <router-view :baseUrl="baseUrl"/>
     <FooterComponent/>
 </template>
 
