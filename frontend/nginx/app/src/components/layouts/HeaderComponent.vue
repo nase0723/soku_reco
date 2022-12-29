@@ -1,6 +1,7 @@
 <script setup>
 import axios from "axios";
 import { useRouter } from 'vue-router';
+import { ref, onBeforeMount } from "vue";
 
 const baseUrl = 'http://localhost:8000';
 const router = useRouter();
@@ -8,6 +9,22 @@ const http = axios.create({
     baseURL: baseUrl,
     withCredentials: true,
 });
+const user = ref();
+const userName = ref();
+
+onBeforeMount(() => {
+    getUser();
+});
+
+const getUser = async () => {
+    try {
+        let response = await http.get('/api/user');
+        userName.value = response.data.name;
+        user.value = response.data;
+    } catch (e) {
+        console.log(e);
+    }
+}
 
 const logout = async () => {
     try {
@@ -46,7 +63,7 @@ const logout = async () => {
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
                     aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">SOKU-RECO</h5>
+                        <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">ユーザー名：{{ userName }}</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                             aria-label="閉じる"></button>
                     </div>
@@ -82,4 +99,7 @@ const logout = async () => {
             </div>
         </nav>
     </header>
+    <br>
+    <br>
+    <br>
 </template>

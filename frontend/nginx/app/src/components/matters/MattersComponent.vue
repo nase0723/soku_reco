@@ -63,9 +63,7 @@ const sortMatters = () => {
 </script>
 
 <template>
-    <br>
-    <br>
-    <br>
+
     <div class="container mt-3 mb-3">
         <div class="row justify-content-between">
             <div class="col-7">

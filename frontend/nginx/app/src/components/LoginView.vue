@@ -33,16 +33,6 @@ const login = async () => {
   }
 }
 
-const getUser = () => {
-  http.get('/api/user')
-    .then((res) => {
-      user.value = res.data;
-    })
-    .catch(function (error) {
-      console.log(error);
-    })
-}
-
 </script>
 <style>
 html,
