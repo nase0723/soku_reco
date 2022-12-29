@@ -29,11 +29,15 @@ const getUser = async () => {
 const logout = async () => {
     try {
         await http.post('/api/logout');
+        CloseNavbar();
         router.push('/login');
     } catch (e) {
         console.log(e);
     }
 }
+
+const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
+
 </script>
 <template>
     <header class="p-3 bg-dark text-white">
@@ -57,7 +61,7 @@ const logout = async () => {
             <div class="container-fluid mt-2 mb-2">
                 <a class="navbar-brand" style="font-size: 33px" href="#">SOKU-RECO</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar">
+                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" v-if="userName">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
@@ -65,17 +69,20 @@ const logout = async () => {
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">ユーザー名：{{ userName }}</h5>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
-                            aria-label="閉じる"></button>
+                            aria-label="閉じる" id="btnCloseNavbar"></button>
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="#">ホーム</a>
+                                <a class="nav-link active" aria-current="page" href="/">ホーム</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">リンク</a>
+                                <a class="nav-link" aria-current="page">使い方</a>
                             </li>
-                            <li class="nav-item dropdown">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#" @click="logout()" v-if="userName">ログアウト</a>
+                            </li>
+                            <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
                                     ドロップダウン
@@ -88,7 +95,7 @@ const logout = async () => {
                                     </li>
                                     <li><a class="dropdown-item" href="#">その他</a></li>
                                 </ul>
-                            </li>
+                            </li> -->
                         </ul>
                         <form class="d-flex mt-3" role="search">
                             <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索">

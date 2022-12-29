@@ -18,7 +18,7 @@ class MatterController extends Controller
      */
     public function index(Request $request)
     {
-        $matters = Matter::where('user_id', Auth::id())->orderBy($request->column, $request->type)->get();
+        $matters = Matter::where('user_id', Auth::id())->orderBy($request->column, $request->type)->limit(100)->get();
         return response()->json(['status' => true, 'matters' => $matters], 200);
     }
 

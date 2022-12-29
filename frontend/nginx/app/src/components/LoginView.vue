@@ -71,14 +71,14 @@ body {
 </style>
 <template>
     <main class="form-signin" v-cloak>
-      <form>
+      <form class="text-center">
         <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
         <h1 class="h3 mb-3 fw-normal">ログイン</h1>
         <p>{{ validate_message }}</p>
     
         <div class="form-floating m-3">
           <input type="text" class="form-control" id="floatingInput" placeholder="" v-model="name">
-          <label for="floatingInput">ユーザー名（アルファベットか数字）</label>
+          <label for="floatingInput">ユーザー名（アルファベットまたは数字）</label>
         </div>
         <!-- <div class="form-check m-3">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
@@ -86,7 +86,7 @@ body {
             ログイン状態を保持する
           </label>
         </div> -->
-        <button class="w-100 btn btn-lg btn-dark" type="button" @click="login()">ログイン</button>
+        <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">ログイン</button>
         <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p> -->
       </form>
     </main>

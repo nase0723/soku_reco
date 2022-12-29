@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->string('place');
+            $table->integer('street_value')->nullable();
             $table->integer('age')->nullable();
             $table->string('address')->nullable();
-            $table->integer('street_value')->nullable();
             $table->string('work')->nullable();
             $table->timestamps();
         });
