@@ -8,11 +8,13 @@ const props = defineProps({
 const http = props.http
 const id = props.id
 const router = useRouter();
-const matter = ref();
+const matter = ref({});
 
 onBeforeMount(() => {
     getMatter();
 });
+
+const redirectToLoginPage = () => router.push({name : 'login'});
 
 const getMatter = async () => {
     try {
@@ -22,21 +24,12 @@ const getMatter = async () => {
             console.log(matter.value.name);
         }
     } catch (e) {
-        console.log(e);
-    }
-}
-
-const DeleteMatter = async () => {
-    try {
-        const response = await http.delete('/api/matters/' + id);
-        if (response.status == 200) {
-            router.push({name: 'matters'});
+        if (e.response.status == 401) {
+            redirectToLoginPage();
         }
-    } catch (e) {
         console.log(e);
     }
 }
-
 
 </script>
 
@@ -45,14 +38,13 @@ const DeleteMatter = async () => {
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>
-                    <span class="badge bg-info">
+                    <span class="badge bg-secondary">
                         {{ matter && matter.name + '&nbsp;&nbsp;' + `${(new Date(matter.created_at)).getFullYear()}/${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}` }}
                     </span>
                 </h1>
             </div>
             <div class="col-3 d-flex justify-content-end">
-                <button class="btn btn-secondary btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
-                    <!-- <i class="bi bi-trash"></i> -->
+                <button class="btn btn-info btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
                     <i class="bi bi-pencil"></i>
                 </button>
             </div>
@@ -94,7 +86,7 @@ const DeleteMatter = async () => {
                 <h3><span class="badge bg-dark"><label for="inputRemarks">備考</label></span></h3>
             </div>
             <div class="col-9">
-                <textarea class="form-control" :value="matter && matter.remarks" id="inputRemarks" rows="2" disabled></textarea>
+                <textarea class="form-control" :value="matter && matter.remarks" id="inputRemarks" rows="3" disabled></textarea>
             </div>
         </div>
     </div>

@@ -10,7 +10,7 @@ const routes = [
     { path: '/', name: 'matters', component: MattersComponent, props: true },
     { path: '/detail/:id', name: 'MatterDetail', component: MatterDetail, props: true },
     { path: '/edit/:id', name: 'EditMatter', component: EditMatter, props: true },
-    { path: '/search', name: 'SearchResults', component: SearchResults, props: true },
+    { path: '/search/:keyword', name: 'SearchResults', component: SearchResults, props: true },
 ]
  
 const router = createRouter({

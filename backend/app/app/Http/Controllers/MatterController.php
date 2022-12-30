@@ -18,8 +18,31 @@ class MatterController extends Controller
      */
     public function index(Request $request)
     {
-        $matters = Matter::where('user_id', Auth::id())->orderBy($request->column, $request->type)->limit(100)->get();
+        $query = Matter::query();
+        if ($request->keyword) {
+            $columns = [
+                'name',
+                'place',
+                'address',
+                'work',
+                'remarks',
+            ];
+            $query = $this->search($query, $request->keyword, $columns);
+        }
+        $matters = $query->where('user_id', Auth::id())->orderBy($request->column, $request->type)->limit(100)->get();
         return response()->json(['status' => true, 'matters' => $matters], 200);
+    }
+    
+
+    private function search ($query, $keyword, $columns) {
+        $spaceConversion = mb_convert_kana($keyword, 's');
+        $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+        foreach($wordArraySearched as $value) {
+            foreach ($columns as $column) {
+                $query->orWhere($column, 'like', '%'.$value.'%');
+            }
+        }
+        return $query;
     }
 
     /**
@@ -78,6 +101,7 @@ class MatterController extends Controller
      */
     public function update(UpdateMatterRequest $request, $id)
     {
+        logger()->debug($request->all());
         Matter::find($id)->update($request->all());
         return response()->json(['status' => true], 200);
     }

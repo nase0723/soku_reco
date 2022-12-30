@@ -9,6 +9,7 @@ const http = props.http
 const router = useRouter();
 const user = ref();
 const userName = ref();
+const keyword = ref();
 
 onBeforeMount(() => {
     getUser();
@@ -34,30 +35,19 @@ const logout = async () => {
     }
 }
 
+const search = async () => {
+    CloseNavbar();
+    router.push({name: 'SearchResults', params: {keyword: String(keyword.value)}});
+}
+
 const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
 
 </script>
 <template>
     <header class="p-3 bg-dark text-white">
-        <!-- <div class="container">
-            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-                        <use xlink:href="#bootstrap" />
-                    </svg>
-                </a>
-                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                    <li class="ext-white display-1">SOKU-RECO</li>
-                </ul>
-                <div class="text-end">
-                    <router-link :to="{ name: 'login' }" class="btn btn-outline-light me-2">ログイン</router-link>
-                    <button type="button" class="btn btn-outline-light me-2" @click="logout()">ログアウト</button>
-                </div>
-            </div>
-        </div> -->
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid mt-2 mb-2">
-                <a class="navbar-brand" style="font-size: 33px" href="#">SOKU-RECO</a>
+                <router-link :to="{name: 'matters'}" class="navbar-brand" style="font-size: 33px">SOKU-RECO</router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
                     data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" v-if="userName">
                     <span class="navbar-toggler-icon"></span>
@@ -71,9 +61,9 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                     </div>
                     <div class="offcanvas-body">
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/">ホーム</a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page">使い方</a>
                             </li>
@@ -95,8 +85,8 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                                 </ul>
                             </li> -->
                         </ul>
-                        <form class="d-flex mt-3" role="search">
-                            <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索">
+                        <form class="d-flex mt-3" role="search" @submit.prevent="search">
+                            <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
                             <button class="btn btn-outline-light flex-shrink-0" type="submit">検索</button>
                         </form>
                     </div>

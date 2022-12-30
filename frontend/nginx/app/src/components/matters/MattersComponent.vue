@@ -1,9 +1,11 @@
 <script setup>
 import { ref, onBeforeMount } from "vue";
+import { useRouter } from 'vue-router';
 const props = defineProps({
     http: Function,
 })
 const http = props.http
+const router = useRouter();
 const matters = ref();
 const fiveMatters = ref();
 const newMatter = ref({});
@@ -11,17 +13,20 @@ const newMatterDetails = ref({});
 const createdMatter = ref();
 const modal = ref({});
 const errors = ref();
+const keyword = ref();
 const selectedSortColumn = ref('created_at');
 const columnsForSort = {
-    created_at: { type: 'desc', name: '登録日', expression: '新しい順' },
-    street_value: { type: 'desc', name: 'スト値', expression: '高い順' },
-    age: { type: 'asc', name: '年齢', expression: '若い順' },
+    created_at: { type: 'desc', name: '登録日', displayContent: '新しい順' },
+    street_value: { type: 'desc', name: 'スト値', displayContent: '高い順' },
+    age: { type: 'asc', name: '年齢', displayContent: '若い順' },
 };
 
 onBeforeMount(() => {
     getMatters({ column: 'created_at', type: 'desc' });
     initModal();
 });
+
+const redirectToLoginPage = () => router.push({name : 'login'});
 
 const initModal = () => {
     newMatter.value = {}
@@ -37,6 +42,9 @@ const getMatters = async (orderBy) => {
         matters.value = response.data.matters;
         fiveMatters.value = matters.value.slice(0, 5);
     } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
         console.log(e);
     }
 }
@@ -50,6 +58,9 @@ const createMatter = async () => {
             modal.value.status = 2;
         }
     } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
         errors.value = e.response.data.errors;
     }
 }
@@ -62,6 +73,9 @@ const createMatterDetails = async () => {
             closeModal();
         }
     } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
         errors.value = e.response.data.errors;
     }
 } 
@@ -72,21 +86,26 @@ const sortMatters = () => {
     getMatters({ column: column, type: type });
 }
 
+const search = async () => router.push({name: 'SearchResults', params: {keyword: String(keyword.value)}});
+
+
 </script>
 
 <template>
 
-    <div class="container mt-3 mb-3">
+    <div class="container mb-2">
         <div class="row justify-content-between">
-            <div class="col-7">
-                <select class="form-select" @change="sortMatters" v-model="selectedSortColumn">
-                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' +
-        value.expression
-}}</option>
+            <div class="col-9">
+                <form class="d-flex" role="search" @submit.prevent="search">
+                    <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
+                    <button class="btn btn-dark flex-shrink-0" type="submit">検索</button>
+                </form>
+                <select class="form-select mt-3" @change="sortMatters" v-model="selectedSortColumn">
+                    <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' + value.displayContent }}</option>
                 </select>
             </div>
             <div class="col-3">
-                <button type="button" class="btn btn-info rounded-circle p-0"
+                <button type="button" class="btn btn-info rounded-circle p-0 position-fixed mt-2"
                     style="width:4rem; height:4rem; font-size:35px;" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop" @click="initModal">＋</button>
             </div>
@@ -225,14 +244,14 @@ const sortMatters = () => {
                                 <textarea class="form-control" v-model="newMatterDetails.remarks" id="inputRemarks" rows="2"></textarea>
                             </div>
                         </div>
-                        <div class="row mb-3">
+                        <!-- <div class="row mb-3">
                             <div class="col-3">
                                 <label for="inputMe" class="col-form-label">自分</label>
                             </div>
                             <div class="col-9">
                                 <textarea class="form-control" v-model="newMatterDetails.me" id="inputMe" rows="2" placeholder="相手に対しての自分の設定"></textarea>
                             </div>
-                        </div>
+                        </div> -->
                         <br>
                         <div class="alert alert-danger" role="alert" v-for="error in errors">{{ error[0] }}</div>
                         <div class="row mt-3">
