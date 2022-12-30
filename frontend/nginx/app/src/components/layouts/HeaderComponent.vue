@@ -60,10 +60,14 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                             aria-label="閉じる" id="btnCloseNavbar"></button>
                     </div>
                     <div class="offcanvas-body">
+                        <form class="d-flex mt-3 mb-3" role="search" @submit.prevent="search">
+                            <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
+                            <button class="btn btn-outline-light flex-shrink-0" type="submit">検索</button>
+                        </form>
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <!-- <li class="nav-item">
+                            <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/">ホーム</a>
-                            </li> -->
+                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" aria-current="page">使い方</a>
                             </li>
@@ -85,15 +89,12 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                                 </ul>
                             </li> -->
                         </ul>
-                        <form class="d-flex mt-3" role="search" @submit.prevent="search">
-                            <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
-                            <button class="btn btn-outline-light flex-shrink-0" type="submit">検索</button>
-                        </form>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
+    <br>
     <br>
     <br>
     <br>

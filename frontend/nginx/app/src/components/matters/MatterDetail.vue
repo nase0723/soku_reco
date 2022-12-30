@@ -38,20 +38,20 @@ const getMatter = async () => {
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>
-                    <span class="badge bg-secondary">
+                    <span class="badge bg-dark">
                         {{ matter && matter.name + '&nbsp;&nbsp;' + `${(new Date(matter.created_at)).getFullYear()}/${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}` }}
                     </span>
                 </h1>
             </div>
             <div class="col-3 d-flex justify-content-end">
-                <button class="btn btn-info btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
+                <button class="btn btn-dark btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
                     <i class="bi bi-pencil"></i>
                 </button>
             </div>
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><span class="badge bg-dark"><label for="place">場所</label></span></h3>
+                <h3><label for="place" class="text-white">場所</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="place" :value="matter && matter.place" disabled>
@@ -59,7 +59,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><span class="badge bg-dark"><label for="street_value">スト値</label></span></h3>
+                <h3><label for="street_value" class="text-white">スト値</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="street_value" :value="matter && matter.street_value" disabled>
@@ -67,7 +67,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><span class="badge bg-dark"><label for="age">年齢</label></span></h3>
+                <h3><label for="age" class="text-white">年齢</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="age" :value="matter && matter.age" disabled>
@@ -75,7 +75,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><span class="badge bg-dark"><label for="work">仕事</label></span></h3>
+                <h3><label for="work" class="text-white">仕事</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="work" :value="matter && matter.work" disabled>
@@ -83,7 +83,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><span class="badge bg-dark"><label for="inputRemarks">備考</label></span></h3>
+                <h3><label for="inputRemarks" class="text-white">備考</label></h3>
             </div>
             <div class="col-9">
                 <textarea class="form-control" :value="matter && matter.remarks" id="inputRemarks" rows="3" disabled></textarea>

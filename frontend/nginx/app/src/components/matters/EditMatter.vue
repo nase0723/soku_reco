@@ -64,7 +64,7 @@ const DeleteMatter = async () => {
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>
-                    <span class="badge bg-secondary">
+                    <span class="badge bg-dark">
                         {{ matter && `${(new Date(matter.created_at)).getFullYear()}/${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}` }}
                     </span>
                 </h1>
@@ -78,7 +78,7 @@ const DeleteMatter = async () => {
         <form @submit.prevent="updateMatter">
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="name">名前</label></span></h3>
+                    <h3><label for="name" class="text-white">名前</label></h3>
                 </div>
                 <div class="col-9">
                     <input type="text" class="form-control" id="name" v-model="matter.name">
@@ -86,7 +86,7 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="place">場所</label></span></h3>
+                    <h3><label for="place" class="text-white">場所</label></h3>
                 </div>
                 <div class="col-9">
                     <input type="text" class="form-control" id="place" v-model="matter.place">
@@ -94,7 +94,7 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="street_value">スト値</label></span></h3>
+                    <h3><label for="street_value" class="text-white">スト値</label></h3>
                 </div>
                 <div class="col-9">
                     <select v-model="matter.street_value" class="form-select" id="street_value">
@@ -104,7 +104,7 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="age">年齢</label></span></h3>
+                    <h3><label for="age" class="text-white">年齢</label></h3>
                 </div>
                 <div class="col-9">
                     <select v-model="matter.age" class="form-select" id="inputAge">
@@ -115,7 +115,7 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="work">仕事</label></span></h3>
+                    <h3><label for="work" class="text-white">仕事</label></h3>
                 </div>
                 <div class="col-9">
                     <input type="text" class="form-control" id="work" v-model="matter.work">
@@ -123,7 +123,7 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
-                    <h3><span class="badge bg-dark"><label for="inputRemarks">備考</label></span></h3>
+                    <h3><label for="inputRemarks" class="text-white">備考</label></h3>
                 </div>
                 <div class="col-9">
                     <textarea class="form-control" v-model="matter.remarks" id="inputRemarks" rows="3"></textarea>
