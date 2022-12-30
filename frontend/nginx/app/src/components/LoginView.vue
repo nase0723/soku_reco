@@ -33,13 +33,13 @@ const login = async () => {
   }
 }
 
+
 let query = location.search.replace('?', '');
 let queryArr = query.split('=');
 if (queryArr[0] == 'name') {
   name.value = queryArr[1];
   login();
 }
-console.log(query.split('=')[1])
 
 </script>
 <style>
