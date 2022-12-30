@@ -1,26 +1,18 @@
 <script setup>
 import HeaderComponent from './components/layouts/HeaderComponent.vue'
 import FooterComponent from './components/layouts/FooterComponent.vue'
+import axios from "axios";
 
 const baseUrl = 'http://localhost:8000';
+const http = axios.create({
+    baseURL: baseUrl,
+    withCredentials: true,
+});
 </script>
 
 <template>
-    <HeaderComponent :baseUrl="baseUrl"/>
-    <router-view :baseUrl="baseUrl"/>
+    <HeaderComponent :http="http"/>
+    <router-view :http="http"/>
     <FooterComponent/>
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>

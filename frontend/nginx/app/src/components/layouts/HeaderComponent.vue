@@ -1,17 +1,12 @@
 <script setup>
-import axios from "axios";
 import { useRouter } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
 
 const props = defineProps({
-    baseUrl: String,
+    http: Function,
 })
-const baseUrl = props.baseUrl
+const http = props.http
 const router = useRouter();
-const http = axios.create({
-    baseURL: baseUrl,
-    withCredentials: true,
-});
 const user = ref();
 const userName = ref();
 

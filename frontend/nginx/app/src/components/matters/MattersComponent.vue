@@ -1,17 +1,9 @@
 <script setup>
-import axios from "axios";
-// import { useRouter } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
 const props = defineProps({
-    baseUrl: String,
+    http: Function,
 })
-const baseUrl = props.baseUrl
-
-const http = axios.create({
-    baseURL: baseUrl,
-    withCredentials: true,
-});
-
+const http = props.http
 const matters = ref();
 const fiveMatters = ref();
 const newMatter = ref({});
@@ -123,7 +115,9 @@ const sortMatters = () => {
                 }}
                 </td>
                 <td class="text-center">
-                    <button class="btn btn-outline-light">詳細</button>
+                    <router-link :to="{ name: 'MatterDetail', params: { id: String(matter.id) } }" class="btn btn-info">
+                        <i class="bi bi-search"></i>
+                    </router-link>
                 </td>
             </tr>
         </tbody>
@@ -221,6 +215,22 @@ const sortMatters = () => {
                             </div>
                             <div class="col-9">
                                 <input type="text" v-model="newMatterDetails.work" class="form-control" id="inputWork">
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="inputRemarks" class="col-form-label">備考</label>
+                            </div>
+                            <div class="col-9">
+                                <textarea class="form-control" v-model="newMatterDetails.remarks" id="inputRemarks" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="inputMe" class="col-form-label">自分</label>
+                            </div>
+                            <div class="col-9">
+                                <textarea class="form-control" v-model="newMatterDetails.me" id="inputMe" rows="2" placeholder="相手に対しての自分の設定"></textarea>
                             </div>
                         </div>
                         <br>

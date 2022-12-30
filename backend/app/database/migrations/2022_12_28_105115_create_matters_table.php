@@ -22,6 +22,8 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('address')->nullable();
             $table->string('work')->nullable();
+            $table->string('remarks')->nullable();
+            $table->string('me')->nullable();
             $table->timestamps();
         });
     }

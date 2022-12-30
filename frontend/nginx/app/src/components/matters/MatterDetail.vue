@@ -1,0 +1,101 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import { ref, onBeforeMount } from "vue";
+const props = defineProps({
+    http: Function,
+    id: String,
+})
+const http = props.http
+const id = props.id
+const router = useRouter();
+const matter = ref();
+
+onBeforeMount(() => {
+    getMatter();
+});
+
+const getMatter = async () => {
+    try {
+        const response = await http.get('/api/matters/' + id);
+        if (response.status == 200) {
+            matter.value = response.data.matter;
+            console.log(matter.value.name);
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+const DeleteMatter = async () => {
+    try {
+        const response = await http.delete('/api/matters/' + id);
+        if (response.status == 200) {
+            router.push({name: 'matters'});
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
+
+</script>
+
+<template>
+    <div class="container">
+        <div class="row d-flex mb-3">
+            <div class="col-9">
+                <h1>
+                    <span class="badge bg-info">
+                        {{ matter && matter.name + '&nbsp;&nbsp;' + `${(new Date(matter.created_at)).getFullYear()}/${(new Date(matter.created_at)).getMonth() + 1}/${(new Date(matter.created_at)).getDate()}` }}
+                    </span>
+                </h1>
+            </div>
+            <div class="col-3 d-flex justify-content-end">
+                <button class="btn btn-secondary btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
+                    <!-- <i class="bi bi-trash"></i> -->
+                    <i class="bi bi-pencil"></i>
+                </button>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <h3><span class="badge bg-dark"><label for="place">場所</label></span></h3>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="place" :value="matter && matter.place" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <h3><span class="badge bg-dark"><label for="street_value">スト値</label></span></h3>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="street_value" :value="matter && matter.street_value" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <h3><span class="badge bg-dark"><label for="age">年齢</label></span></h3>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="age" :value="matter && matter.age" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <h3><span class="badge bg-dark"><label for="work">仕事</label></span></h3>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="work" :value="matter && matter.work" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
+                <h3><span class="badge bg-dark"><label for="inputRemarks">備考</label></span></h3>
+            </div>
+            <div class="col-9">
+                <textarea class="form-control" :value="matter && matter.remarks" id="inputRemarks" rows="2" disabled></textarea>
+            </div>
+        </div>
+    </div>
+</template>

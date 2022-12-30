@@ -52,9 +52,10 @@ class MatterController extends Controller
      * @param  \App\Models\Matter  $matter
      * @return \Illuminate\Http\Response
      */
-    public function show(Matter $matter)
+    public function show($id)
     {
-        //
+        $matter = Matter::find($id);
+        return response()->json(['status' => true, 'matter' => $matter], 200);
     }
 
     /**
@@ -77,7 +78,8 @@ class MatterController extends Controller
      */
     public function update(UpdateMatterRequest $request, $id)
     {
-        return Matter::find($id)->update($request->all());
+        Matter::find($id)->update($request->all());
+        return response()->json(['status' => true], 200);
     }
 
     /**
@@ -86,8 +88,9 @@ class MatterController extends Controller
      * @param  \App\Models\Matter  $matter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Matter $matter)
+    public function destroy($id)
     {
-        //
+        Matter::destroy($id);
+        return response()->json(['status' => true], 200);
     }
 }
