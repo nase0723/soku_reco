@@ -15,6 +15,8 @@ RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 RUN apt-get install -y nodejs
 RUN npm install vue-loader@^15.9.8 --save-dev --legacy-peer-deps
 RUN npm install vue-router@3
+RUN npm install @vitejs/plugin-vue --save-dev
+
 
 RUN apt-get update \
     && apt-get install -y libpq-dev \
