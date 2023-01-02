@@ -69,6 +69,10 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                                 <a class="nav-link active" aria-current="page" href="/">ホーム</a>
                             </li>
                             <li class="nav-item">
+                                <!-- <a class="nav-link active" aria-current="page" href="/">ホーム</a> -->
+                                <router-link :to="{name: 'appointments'}" class="nav-link" @click="CloseNavbar">アポ一覧</router-link>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" aria-current="page">使い方</a>
                             </li>
                             <li class="nav-item">
