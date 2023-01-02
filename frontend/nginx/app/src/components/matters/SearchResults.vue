@@ -68,7 +68,7 @@ search();
                 }}
                 </td> -->
                 <td class="text-center">
-                    <router-link :to="{ name: 'MatterDetail', params: { id: String(matter.id) } }" class="btn btn-dark">
+                    <router-link :to="{ name: 'MatterDetail', params: { id: String(matter.id) } }" class="btn btn-info">
                         <i class="bi bi-search"></i>
                     </router-link>
                 </td>

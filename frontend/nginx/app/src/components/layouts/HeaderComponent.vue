@@ -10,6 +10,7 @@ const router = useRouter();
 const user = ref();
 const userName = ref();
 const keyword = ref();
+const searchFormIsShow = location.pathname.split('/')[1] != 'search';
 
 onBeforeMount(() => {
     getUser();
@@ -49,7 +50,7 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
             <div class="container-fluid mt-2 mb-2">
                 <router-link :to="{name: 'matters'}" class="navbar-brand" style="font-size: 33px">SOKU-RECO</router-link>
                 <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" v-if="userName">
+                    data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" v-if="userName" @click="keyword = null">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="offcanvas offcanvas-end text-bg-dark" tabindex="-1" id="offcanvasDarkNavbar"
@@ -66,10 +67,13 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                         </form>
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
+                                <a class="nav-link" aria-current="page">使い方</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link active" aria-current="page" href="/">ホーム</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" aria-current="page">使い方</a>
+                                <a class="nav-link active" aria-current="page" href="/">アポ一覧</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="#" @click="logout()" v-if="userName">ログアウト</a>

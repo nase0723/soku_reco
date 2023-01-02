@@ -21,7 +21,6 @@ const getMatter = async () => {
         const response = await http.get('/api/matters/' + id);
         if (response.status == 200) {
             matter.value = response.data.matter;
-            console.log(matter.value.name);
         }
     } catch (e) {
         if (e.response.status == 401) {
@@ -49,6 +48,13 @@ const getMatter = async () => {
                 </button>
             </div>
         </div>
+        <!-- <div class="row mb-3">
+            <div class="col-3">
+                <button class="btn btn-danger" @click="router.push({name: 'EditMatter', params: {id : id}})">
+                    <i class="bi bi-clipboard2-heart-fill"></i>
+                </button>
+            </div>
+        </div> -->
         <div class="row mb-3">
             <div class="col-3">
                 <h3><label for="place" class="text-white">場所</label></h3>
