@@ -3,5 +3,10 @@
 git checkout -b test origin/test
 ```
 
+```
 npm install @vitejs/plugin-vue --save-dev
+```
+
+```
 npm install vue-router@3
+```
