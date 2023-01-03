@@ -20,9 +20,13 @@
             body {
                 font-family: 'Nunito', sans-serif;
             }
+            .background {
+                background-image: url('../images/earth.webp'); height: 100vh; 
+                background-size:cover;
+            }
         </style>
     </head>
     <body class="antialiased">
-        <div id="app" v-cloak></div>
+        <div id="app" class="background" v-cloak></div>
     </body>
 </html>
