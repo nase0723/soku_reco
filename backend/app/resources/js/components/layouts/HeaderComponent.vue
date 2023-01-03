@@ -101,5 +101,4 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
     <br>
     <br>
     <br>
-    <br>
 </template>

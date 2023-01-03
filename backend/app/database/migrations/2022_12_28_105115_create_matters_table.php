@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('work')->nullable();
             $table->string('remarks')->nullable();
+            $table->boolean('completion')->default(0);
             $table->string('me')->nullable();
             $table->timestamps();
         });

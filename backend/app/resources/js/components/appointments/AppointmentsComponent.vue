@@ -26,7 +26,7 @@ const createdAppointment = ref({});
 const dayOfWeekStrJP = [ "日", "月", "火", "水", "木", "金", "土" ];
 
 onBeforeMount(() => {
-    // getMatters({ column: 'created_at', type: 'desc' });
+    getMatters({ column: 'created_at', type: 'desc' });
     getAppointments();
     initModal();
 });
@@ -36,7 +36,6 @@ const redirectToLoginPage = () => router.push({name : 'login'});
 const initModal = () => {
     newMatter.value = {}
     errors.value = {};
-    modal.value.status = 1;
 };
 
 const closeModal = () => document.getElementById('btnCloseModal').click();
@@ -53,13 +52,25 @@ const getAppointments = async () => {
     }
 }
 
+const getMatters = async (orderBy) => {
+    try {
+        const response = await http.get(`/api/matters?column=${orderBy.column}&type=${orderBy.type}`);
+        matters.value = response.data.matters;
+    } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
+        console.log(e);
+    }
+}
+
 const createAppointment = async () => {
     try {
         const response = await http.post('/api/appointments', appointmentToCreate.value);
         if (response.status == 200) {
             createdAppointment.value = response.data.appointment;
             getAppointments();
-            modal.value.status = 2;
+            closeModal();
         }
     } catch (e) {
         if (e.response.status == 401) {
@@ -69,36 +80,16 @@ const createAppointment = async () => {
     }
 }
 
-const sortMatters = () => {
-    let column = selectedSortColumn.value;
-    let type = columnsForSort[selectedSortColumn.value].type;
-    // getMatters({ column: column, type: type });
-}
-
-const search = async () => router.push({name: 'SearchResults', params: {keyword: String(keyword.value)}});
-
-
 </script>
 
 <template>
 
-    <div class="container mb-5">
+    <div class="container mb-3">
         <div class="row justify-content-between">
             <div class="col-9">
-                <!-- <form class="d-flex" role="search" @submit.prevent="search">
-                    <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
-                    <button class="btn btn-dark flex-shrink-0" type="submit">検索</button>
-                </form> -->
-                <!-- <div class="mt-3 d-flex">
-                    <div class="w-25">
-                        <h2>
-                            <span class="badge bg-dark">並び</span>
-                        </h2>
-                    </div>
-                    <select class="form-select w-75" @change="sortMatters" v-model="selectedSortColumn">
-                        <option :value="column" v-for="(value, column) in columnsForSort">{{ value.name + '：' + value.displayContent }}</option>
-                    </select>
-                </div> -->
+                <h3>アポ一覧</h3>
+                <router-link :to="{name: 'calendar'}"  class="link-danger text-decoration-none">カレンダー表示</router-link>
+                <!-- <router-link :to="{name: 'calendar'}"  class="btn btn-danger">カレンダー表示</router-link> -->
             </div>
             <div class="col-3 mb-4">
                 <button type="button" class="btn btn-danger rounded-circle p-0 position-fixed"
@@ -117,17 +108,19 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
             </tr>
         </thead>
         <tbody>
-            <tr v-for="appointment in appointments">
-                <td class="text-center">{{ appointment.matter.name }}</td>
-                <td class="text-center">
-                    {{ appointment.appointment_date.substr(0, 10).replace(/-/g, '/').replace(/\/0/g, '/').replace((new Date().getFullYear()) + '/', '') }}
-                    {{ '(' + dayOfWeekStrJP[(new Date(appointment.appointment_date.replace(/-/g, '/'))).getDay()] + ')' }}
-                    <br>
-                    {{ appointment.appointment_date.slice(-8).replace(/:00/, '') }}
-                </td>
-                <td class="text-center"></td>
-                <td class="text-center"></td>
-            </tr>
+            <template v-for="appointment in appointments">
+                <tr :class="{'table-secondary': (new Date()) < (new Date(appointment.appointment_date.replace(/-/g, '/'))) }">
+                    <td class="text-center">{{ appointment.matter.name }}</td>
+                    <td class="text-center">
+                        {{ appointment.appointment_date.substr(0, 10).replace(/-/g, '/').replace(/\/0/g, '/').replace((new Date().getFullYear()) + '/', '') }}
+                        {{ '(' + dayOfWeekStrJP[(new Date(appointment.appointment_date.replace(/-/g, '/'))).getDay()] + ')' }}
+                        <br>
+                        {{ appointment.appointment_date.slice(-8).replace(/:00/, '') }}
+                    </td>
+                    <td class="text-center"></td>
+                    <td class="text-center"></td>
+                </tr>
+            </template>
         </tbody>
     </table>
     <!-- アポ設定 -->
@@ -136,11 +129,11 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ {1: 'アポセッティング'}[modal.status]}}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">アポセッティング</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         id="btnCloseModal"></button>
                 </div>
-                <div class="modal-body" v-if="modal.status === 1">
+                <div class="modal-body">
                     <form @submit.prevent="createAppointment">
                         <div class="row mb-3">
                             <div class="col-3">

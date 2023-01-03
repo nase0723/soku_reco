@@ -23,6 +23,6 @@
         </style>
     </head>
     <body class="antialiased">
-        <div id="app"></div>
+        <div id="app" v-cloak></div>
     </body>
 </html>

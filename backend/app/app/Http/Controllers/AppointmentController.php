@@ -21,7 +21,7 @@ class AppointmentController extends Controller
             $q->where('user_id', Auth::id());
         })
         ->with('matter')
-        ->latest()
+        ->orderBy('appointment_date', 'desc')
         ->get();
         return response()->json(['status' => true, 'appointments' => $appointments], 200);
     }
