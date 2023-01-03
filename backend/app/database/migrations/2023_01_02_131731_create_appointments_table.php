@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->integer('matter_id');
+            $table->string('place')->nullable();
             $table->boolean('completion')->default(0);
             $table->string('remarks')->nullable();
             $table->timestamp('appointment_date')->nullable();

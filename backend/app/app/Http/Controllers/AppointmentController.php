@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
 class AppointmentController extends Controller
 {
@@ -15,7 +17,13 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        $appointments = Appointment::whereHas('matter', function ($q) {
+            $q->where('user_id', Auth::id());
+        })
+        ->with('matter')
+        ->latest()
+        ->get();
+        return response()->json(['status' => true, 'appointments' => $appointments], 200);
     }
 
     /**
@@ -36,7 +44,11 @@ class AppointmentController extends Controller
      */
     public function store(StoreAppointmentRequest $request)
     {
-        //
+        $data = $request->all();
+        $data['appointment_date'] = date('Y-m-d H:i:s', strtotime($request->appointment_date));
+
+        $created = Appointment::create($data);
+        return response()->json(['status' => true, 'appointment' => $created], 200);
     }
 
     /**

@@ -7,6 +7,7 @@ import SearchResults from "./components/matters/SearchResults.vue";
 import AppointmentsComponent from "./components/appointments/AppointmentsComponent.vue";
 import AppointmentDetail from "./components/appointments/AppointmentDetail.vue";
 import EditAppointment from "./components/appointments/EditAppointment.vue";
+import CalendarComponent from "./components/appointments/CalendarComponent.vue";
  
 const routes = [
     { path: '/login', name: 'login', component: LoginView },
@@ -21,6 +22,7 @@ const routes = [
     { path: '/appointments', name: 'appointments', component: AppointmentsComponent, props: true },
     { path: '/appointments/detail/:id', name: 'AppointmentDetail', component: AppointmentDetail, props: true },
     { path: '/appointments/edit/:id', name: 'EditAppointment', component: EditAppointment, props: true },
+    { path: '/calendar', name: 'calendar', component: CalendarComponent, props: true },
 ]
  
 const router = createRouter({
