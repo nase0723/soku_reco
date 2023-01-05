@@ -119,8 +119,12 @@ const createAppointment = async () => {
                         <br>
                         {{ appointment.appointment_date.slice(-8).replace(/:00/, '') }}
                     </td>
-                    <td class="text-center"></td>
-                    <td class="text-center"></td>
+                    <td class="text-center">{{ appointment.place }}</td>
+                    <td class="text-center">
+                        <router-link :to="{ name: 'MatterDetail', params: { id: String(appointment.id) } }" class="btn btn-danger">
+                            <i class="bi bi-search"></i>
+                        </router-link>
+                    </td>
                 </tr>
             </template>
         </tbody>

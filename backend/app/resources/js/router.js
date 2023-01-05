@@ -22,7 +22,7 @@ const routes = [
     { path: '/appointments', name: 'appointments', component: AppointmentsComponent, props: true },
     { path: '/appointments/detail/:id', name: 'AppointmentDetail', component: AppointmentDetail, props: true },
     { path: '/appointments/edit/:id', name: 'EditAppointment', component: EditAppointment, props: true },
-    { path: '/calendar', name: 'calendar', component: CalendarComponent, props: true },
+    { path: '/appointments/calendar', name: 'calendar', component: CalendarComponent, props: true },
 ]
  
 const router = createRouter({

@@ -56,6 +56,7 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                     aria-labelledby="offcanvasDarkNavbarLabel">
                     <div class="offcanvas-header">
                         <h5 class="offcanvas-title" id="offcanvasDarkNavbarLabel">ユーザー名：{{ userName }}</h5>
+                        <button type="button" class="btn btn-light" @click="logout()" v-if="userName">ログアウト</button>
                         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"
                             aria-label="閉じる" id="btnCloseNavbar"></button>
                     </div>
@@ -66,18 +67,15 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
                         </form>
                         <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">ホーム</a>
+                                <router-link :to="{name: 'matters'}" class="nav-link" exact-active-class="active" @click="CloseNavbar">ホーム</router-link>
                             </li>
                             <li class="nav-item">
                                 <!-- <a class="nav-link active" aria-current="page" href="/">ホーム</a> -->
-                                <router-link :to="{name: 'appointments'}" class="nav-link" @click="CloseNavbar">アポ一覧</router-link>
+                                <router-link :to="{name: 'appointments'}" class="nav-link" exact-active-class="active" @click="CloseNavbar">アポ一覧</router-link>
                             </li>
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a class="nav-link" aria-current="page">使い方</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#" @click="logout()" v-if="userName">ログアウト</a>
-                            </li>
+                            </li> -->
                             <!-- <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                     aria-expanded="false">
