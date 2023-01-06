@@ -8,18 +8,7 @@ const http = props.http
 const router = useRouter();
 const matters = ref();
 const newMatter = ref({});
-const newMatterDetails = ref({});
-const createdMatter = ref();
-const modal = ref({});
 const errors = ref();
-const keyword = ref();
-const selectedSortColumn = ref('created_at');
-const columnsForSort = {
-    created_at: { type: 'desc', name: '登録日', displayContent: '新しい順' },
-    street_value: { type: 'desc', name: 'スト値', displayContent: '高い順' },
-    age: { type: 'asc', name: '年齢', displayContent: '若い順' },
-};
-
 const appointments = ref();
 const appointmentToCreate = ref({});
 const createdAppointment = ref({});
@@ -87,7 +76,7 @@ const createAppointment = async () => {
     <div class="container mb-3">
         <div class="row justify-content-between">
             <div class="col-9">
-                <h3 class="text-white">アポ一覧</h3>
+                <h3 class="text-light">アポ一覧</h3>
                 <!-- <router-link :to="{name: 'calendar'}"  class="link-danger text-decoration-none">カレンダー表示</router-link> -->
                 <div class="mt-4">
                     <router-link :to="{name: 'calendar'}" class="btn btn-danger">カレンダー表示</router-link>
@@ -121,7 +110,7 @@ const createAppointment = async () => {
                     </td>
                     <td class="text-center">{{ appointment.place }}</td>
                     <td class="text-center">
-                        <router-link :to="{ name: 'MatterDetail', params: { id: String(appointment.id) } }" class="btn btn-danger">
+                        <router-link :to="{ name: 'AppointmentDetail', params: { id: String(appointment.id) } }" class="btn btn-danger">
                             <i class="bi bi-search"></i>
                         </router-link>
                     </td>

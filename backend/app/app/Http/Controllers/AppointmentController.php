@@ -57,9 +57,10 @@ class AppointmentController extends Controller
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function show(Appointment $appointment)
+    public function show($id)
     {
-        //
+        $appointment = Appointment::with('matter')->find($id);
+        return response()->json(['status' => true, 'appointment' => $appointment], 200);
     }
 
     /**

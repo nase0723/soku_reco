@@ -7,7 +7,7 @@ const props = defineProps({
 })
 const http = props.http
 const router = useRouter();
-const user = ref();
+const user = ref({});
 const userName = ref();
 const keyword = ref();
 
@@ -18,8 +18,8 @@ onBeforeMount(() => {
 const getUser = async () => {
     try {
         let response = await http.get('/api/user');
-        userName.value = response.data.name;
         user.value = response.data;
+        userName.value = user.value.name;
     } catch (e) {
         console.log(e);
     }
@@ -29,7 +29,8 @@ const logout = async () => {
     try {
         await http.post('/api/logout');
         CloseNavbar();
-        router.push('/login');
+        // router.push('/login');
+        location.href = '/';
     } catch (e) {
         console.log(e);
     }
@@ -44,7 +45,7 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
 
 </script>
 <template>
-    <header class="p-3 bg-dark text-white">
+    <header class="p-3 bg-dark text-light">
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid mt-2 mb-2">
                 <router-link :to="{name: 'matters'}" class="navbar-brand" style="font-size: 33px">SOKU-RECO</router-link>

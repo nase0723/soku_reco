@@ -15,7 +15,6 @@ const http = axios.create({
 });
 
 onBeforeMount(async () => {
-  console.log("on mount");
   let checked = await http.get('/api/check');
   if (checked.data) {
     router.push('/');
@@ -26,7 +25,8 @@ const login = async () => {
   try {
     await http.get('/sanctum/csrf-cookie');
     await http.post('/api/login', { name: name.value });
-    router.push('/');
+    // router.push('/');
+    location.href = '/';
   } catch (e) {
     console.log(e);
     validate_message.value = 'ログインできませんでした';
@@ -38,7 +38,7 @@ let query = location.search.replace('?', '');
 let queryArr = query.split('=');
 if (queryArr[0] == 'name') {
   name.value = queryArr[1];
-  login();
+  // login();
 }
 
 </script>
@@ -80,8 +80,8 @@ body {
 <template>
     <main class="form-signin" v-cloak>
       <form class="text-center">
-        <!-- <img class="mb-4" src="../assets/brand/bootstrap-logo.svg" alt="" width="72" height="57"> -->
-        <!-- <h1 class="mb-3 fw-normal text-white">ログイン</h1> -->
+        <img class="mb-4" src="/images/memo.svg" alt="" width="72" height="57">
+        <!-- <h1 class="mb-3 fw-normal text-light">なにかキャッチコピー的な</h1> -->
         
     
         <div class="form-floating mb-3">
@@ -95,8 +95,7 @@ body {
           </label>
         </div> -->
         <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">ログイン</button>
-        <h2 class="text-white bt-5">{{ validate_message }}</h2>
-        <!-- <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p> -->
+        <h2 class="text-light bt-5">{{ validate_message }}</h2>
       </form>
     </main>
         
