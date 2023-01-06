@@ -46,7 +46,6 @@ class AppointmentController extends Controller
     {
         $data = $request->all();
         $data['appointment_date'] = date('Y-m-d H:i:s', strtotime($request->appointment_date));
-
         $created = Appointment::create($data);
         return response()->json(['status' => true, 'appointment' => $created], 200);
     }
@@ -81,9 +80,12 @@ class AppointmentController extends Controller
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAppointmentRequest $request, Appointment $appointment)
+    public function update(UpdateAppointmentRequest $request, $id)
     {
-        //
+        $data = $request->all();
+        $data['appointment_date'] = date('Y-m-d H:i:s', strtotime($request->appointment_date));
+        Appointment::find($id)->update($request->all());
+        return response()->json(['status' => true], 200);
     }
 
     /**

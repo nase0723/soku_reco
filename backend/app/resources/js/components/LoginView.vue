@@ -81,7 +81,7 @@ body {
     <main class="form-signin" v-cloak>
       <form class="text-center">
         <img class="mb-4" src="/images/memo.svg" alt="" width="72" height="57">
-        <!-- <h1 class="mb-3 fw-normal text-light">なにかキャッチコピー的な</h1> -->
+        <!-- <h1 class="mb-3 fw-normal text-secondary">なにかキャッチコピー的な</h1> -->
         
     
         <div class="form-floating mb-3">
@@ -95,7 +95,7 @@ body {
           </label>
         </div> -->
         <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">ログイン</button>
-        <h2 class="text-light bt-5">{{ validate_message }}</h2>
+        <h2 class="text-secondary bt-5">{{ validate_message }}</h2>
       </form>
     </main>
         

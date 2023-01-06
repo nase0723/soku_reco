@@ -45,7 +45,7 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
 
 </script>
 <template>
-    <header class="p-3 bg-dark text-light">
+    <header class="p-3 bg-dark text-secondary">
         <nav class="navbar navbar-dark bg-dark fixed-top">
             <div class="container-fluid mt-2 mb-2">
                 <router-link :to="{name: 'matters'}" class="navbar-brand" style="font-size: 33px">SOKU-RECO</router-link>

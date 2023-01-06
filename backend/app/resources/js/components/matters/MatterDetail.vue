@@ -50,7 +50,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="place" class="text-light">場所</label></h3>
+                <h3><label for="place" class="text-secondary">場所</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="place" :value="matter && matter.place" disabled>
@@ -58,7 +58,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="street_value" class="text-light">スト値</label></h3>
+                <h3><label for="street_value" class="text-secondary">スト値</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="street_value" :value="matter && matter.street_value" disabled>
@@ -66,7 +66,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="age" class="text-light">年齢</label></h3>
+                <h3><label for="age" class="text-secondary">年齢</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="age" :value="matter && matter.age" disabled>
@@ -74,7 +74,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="work" class="text-light">仕事</label></h3>
+                <h3><label for="work" class="text-secondary">仕事</label></h3>
             </div>
             <div class="col-9">
                 <input type="text" class="form-control" id="work" :value="matter && matter.work" disabled>
@@ -82,7 +82,7 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="inputRemarks" class="text-light">備考</label></h3>
+                <h3><label for="inputRemarks" class="text-secondary">備考</label></h3>
             </div>
             <div class="col-9">
                 <textarea class="form-control" :value="matter && matter.remarks" id="inputRemarks" rows="3" disabled></textarea>

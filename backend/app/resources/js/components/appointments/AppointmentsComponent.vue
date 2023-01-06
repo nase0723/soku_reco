@@ -76,7 +76,7 @@ const createAppointment = async () => {
     <div class="container mb-3">
         <div class="row justify-content-between">
             <div class="col-9">
-                <h3 class="text-light">アポ一覧</h3>
+                <h3 class="text-secondary">アポ一覧</h3>
                 <!-- <router-link :to="{name: 'calendar'}"  class="link-danger text-decoration-none">カレンダー表示</router-link> -->
                 <div class="mt-4">
                     <router-link :to="{name: 'calendar'}" class="btn btn-danger">カレンダー表示</router-link>
