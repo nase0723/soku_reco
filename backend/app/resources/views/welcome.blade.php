@@ -29,7 +29,6 @@
         </style>
     </head>
     <body class="antialiased">
-        {{-- <div id="app" class="background" v-cloak></div> --}}
         <div id="app" v-cloak></div>
     </body>
 </html>

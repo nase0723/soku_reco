@@ -32,7 +32,7 @@ search();
 </script>
 
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row mb-3">
             <form class="d-flex mt-3" role="search" @submit.prevent="search">
                 <input class="form-control me-2" type="search" placeholder="名前、場所、住み、仕事、備考" aria-label="検索" v-model="keyword">

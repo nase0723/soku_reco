@@ -92,8 +92,7 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
 </script>
 
 <template>
-
-    <div class="container mb-4">
+    <div class="container mb-4 mt-5">
         <div class="row justify-content-between">
             <div class="col-9">
                 <!-- <form class="d-flex" role="search" @submit.prevent="search">

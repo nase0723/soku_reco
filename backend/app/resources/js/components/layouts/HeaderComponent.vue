@@ -98,6 +98,4 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
         </nav>
     </header>
     <br>
-    <br>
-    <br>
 </template>

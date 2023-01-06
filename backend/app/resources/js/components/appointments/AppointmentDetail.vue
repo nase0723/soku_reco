@@ -38,7 +38,7 @@ const getAppointment = async () => {
 </script>
 
 <template>
-    <div class="container">
+    <div class="container mt-5">
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>

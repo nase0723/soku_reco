@@ -73,7 +73,7 @@ const createAppointment = async () => {
 
 <template>
 
-    <div class="container mb-3">
+    <div class="container mb-3 mt-5">
         <div class="row justify-content-between">
             <div class="col-9">
                 <h3 class="text-secondary">アポ一覧</h3>
