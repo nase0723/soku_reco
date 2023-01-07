@@ -79,7 +79,7 @@ const createAppointment = async () => {
                 <h3 class="text-secondary">アポ一覧</h3>
                 <!-- <router-link :to="{name: 'calendar'}"  class="link-danger text-decoration-none">カレンダー表示</router-link> -->
                 <div class="mt-4">
-                    <router-link :to="{name: 'calendar'}" class="btn btn-danger">カレンダー表示</router-link>
+                    <router-link :to="{name: 'calendar'}" class="btn btn-danger"><i class="bi bi-calendar"></i> カレンダー</router-link>
                 </div>
             </div>
             <div class="col-3 mb-4">
