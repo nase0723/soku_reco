@@ -80,7 +80,7 @@ body {
 <template>
     <main class="background mt-4" v-cloak>
       <form class="text-center form-signin">
-        <img class="mb-4 mt-3" src="/images/memo.svg" alt="" width="72" height="57">
+        <img class="mb-4 mt-3" :src="'/images/memo.svg'" alt="" width="72" height="57">
         <!-- <h1 class="mb-3 fw-normal text-secondary">なにかキャッチコピー的な</h1> -->
         
     
