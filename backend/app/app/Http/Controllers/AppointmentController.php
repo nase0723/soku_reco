@@ -28,6 +28,7 @@ class AppointmentController extends Controller
     }
 
     public function get_calendar($year, $month) {
+
         $firstOfMonth = Carbon::create($year, $month)->firstOfMonth();
         $firstOfCalendar = $firstOfMonth->subDays((int) $firstOfMonth->format('w'));
         $lastOfMonth = Carbon::create($year, $month)->lastOfMonth();
@@ -41,10 +42,10 @@ class AppointmentController extends Controller
                 $appointments = Appointment::whereHas('matter', function ($q) {
                     $q->where('user_id', Auth::id());
                 })
-                ->with('matter')
                 ->whereYear('appointment_date', $year)
                 ->whereMonth('appointment_date', $month)
                 ->whereDay('appointment_date', $firstOfCalendar->format('j'))
+                ->with('matter')
                 ->get();
                 array_push($weekRow, [
                     'date' => $firstOfCalendar->format('j'),
@@ -127,8 +128,8 @@ class AppointmentController extends Controller
      * @param  \App\Models\Appointment  $appointment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
-        //
+        return response()->json(['status' => Appointment::destroy($id)], 200);
     }
 }

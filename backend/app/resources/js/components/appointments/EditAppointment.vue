@@ -51,7 +51,17 @@ const updateAppointment = async () => {
 }
 
 const DeleteAppointment = async () => {
-    console.log('delete');
+    try {
+        const response = await http.delete('/api/appointments/' + id);
+        if (response.status == 200) {
+            router.push({name: 'appointments'});
+        }
+    } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
+        console.log(e);
+    }
 }
 </script>
 <template>

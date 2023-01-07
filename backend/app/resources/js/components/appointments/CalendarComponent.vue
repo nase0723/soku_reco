@@ -12,7 +12,8 @@ const calendar = ref([]);
 
 const getCalendar = async () => {
     try {
-        const response = await http.get(`/api/appointments/calendar/${currentDate.value.year()}/${currentDate.value.month()}`);
+        console.log(`/api/appointments/calendar/${currentDate.value.year()}/${currentDate.value.month() + 1}`);
+        const response = await http.get(`/api/appointments/calendar/${currentDate.value.year()}/${currentDate.value.month() + 1}`);
         calendar.value = response.data.calendar;
         console.log(calendar.value);
     } catch (e) {
@@ -35,13 +36,13 @@ getCalendar();
 </script>
 <template>
     <div class="container mt-5">
-        <h2>カレンダー {{ currentDate.format("M") }}月</h2>
+        <h2 class="mb-3"> {{ currentDate.format("M") }}月 アポ予定</h2>
         <button @click="prevMonth">前の月</button>
         <button @click="nextMonth">次の月</button>
-        <table class="table table-bordered">
+        <table class="table table-bordered mt-3">
             <thead>
                 <tr>
-                    <th v-for="i in 7" :class="{'text-danger': i === 1, 'text-primary': i === 7}">
+                    <th v-for="i in 7" :class="{'text-danger': i === 1, 'text-primary': i === 7}" style="width: 50px;">
                         {{ dayOfWeekStrJP[i - 1] }}
                     </th>
                 </tr>
@@ -49,8 +50,17 @@ getCalendar();
             <tbody>
                 <tr v-for="(week, index) in calendar" :key="index">
                     <td v-for="(day, index) in week" :key="index">
-                        {{ day.date }}
-                        <!-- {{ day.appointments }} -->
+                        <span class="fw-bolder">
+                            {{ day.date }}
+                        </span>
+                        <!-- <div v-if="day.appointments.length"> -->
+                            <span v-for="appointment in day.appointments" style="font-size: 12px;" >
+                                <br>
+                                <router-link :to="{name : 'AppointmentDetail', params: { id: String(appointment.id) } }" class="text-decoration-none">
+                                    {{ appointment.matter.name }}
+                                </router-link>
+                            </span>
+                        <!-- </div> -->
                     </td>
                 </tr>
             </tbody>
