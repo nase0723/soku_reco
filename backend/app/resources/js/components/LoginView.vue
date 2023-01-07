@@ -7,12 +7,12 @@ const router = useRouter();
 const user = ref();
 const name = ref();
 const validate_message = ref();
-const baseUrl = 'http://localhost:8000';
 
-const http = axios.create({
-  baseURL: baseUrl,
-  withCredentials: true,
-});
+const props = defineProps({
+    http: Function,
+    id: String,
+})
+const http = props.http
 
 onBeforeMount(async () => {
   let checked = await http.get('/api/check');
