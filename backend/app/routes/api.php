@@ -31,8 +31,10 @@ Route::middleware('guest')->group(function () {
 
 Route::post('logout', [LoginController::class, 'logout']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::resource('matters', MatterController::class);
     Route::resource('appointments', AppointmentController::class);
+    Route::get('appointments/calendar/{year}/{month}', [AppointmentController::class, 'get_calendar']);
     // , ['only' => ['index', ]]
 });

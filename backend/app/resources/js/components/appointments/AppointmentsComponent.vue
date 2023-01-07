@@ -132,7 +132,9 @@ const createAppointment = async () => {
                     <form @submit.prevent="createAppointment">
                         <div class="row mb-3">
                             <div class="col-3">
-                                <label for="matter_id" class="col-form-label">案件名</label>
+                                <label for="matter_id" class="col-form-label">案件名
+                                    <!-- <br><span class="badge bg-danger">必須</span> -->
+                                </label>
                             </div>
                             <div class="col-9">
                                 <select class="form-select" id="matter_id" v-model="appointmentToCreate.matter_id">

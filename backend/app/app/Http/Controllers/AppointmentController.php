@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
+use Illuminate\Http\Request;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -24,6 +25,38 @@ class AppointmentController extends Controller
         ->orderBy('appointment_date', 'desc')
         ->get();
         return response()->json(['status' => true, 'appointments' => $appointments], 200);
+    }
+
+    public function get_calendar($year, $month) {
+        $firstOfMonth = Carbon::create($year, $month)->firstOfMonth();
+        $firstOfCalendar = $firstOfMonth->subDays((int) $firstOfMonth->format('w'));
+        $lastOfMonth = Carbon::create($year, $month)->lastOfMonth();
+        $lastOfCalendar = $lastOfMonth->addDays(6 - (int) $lastOfMonth->format('w'));
+        $countOfRow = (int) ceil($lastOfCalendar->diffInDays($firstOfCalendar) / 7);
+
+        $calendar = [];
+        for ($week = 0; $week < $countOfRow; $week++) {
+            $weekRow = [];
+            for ($day = 0; $day < 7; $day++) {
+                $appointments = Appointment::whereHas('matter', function ($q) {
+                    $q->where('user_id', Auth::id());
+                })
+                ->with('matter')
+                ->whereYear('appointment_date', $year)
+                ->whereMonth('appointment_date', $month)
+                ->whereDay('appointment_date', $firstOfCalendar->format('j'))
+                ->get();
+                array_push($weekRow, [
+                    'date' => $firstOfCalendar->format('j'),
+                    'dayOfWeek' => $firstOfCalendar->format('w'),
+                    'appointments' => $appointments,
+                ]);
+                $firstOfCalendar->addDays(1);
+            }
+            array_push($calendar, $weekRow);
+        }
+
+        return response()->json(['status' => true, 'calendar' => $calendar], 200);
     }
 
     /**
