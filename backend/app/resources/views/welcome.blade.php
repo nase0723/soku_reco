@@ -6,6 +6,21 @@
 
         <title>SOKU-RECO</title>
 
+        {{-- <link rel="manifest" href="/manifest.json"> --}}
+        <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
+        <script>
+            window.addEventListener('load', function () {
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register("/sw.js")
+                    .then(function (registration) {
+                        console.log("serviceWorker registed.");
+                    }).catch(function (error) {
+                            console.warn("serviceWorker error.", error);
+                        });
+                }
+            });
+        </script>
+
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
         <!-- Fonts -->

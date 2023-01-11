@@ -11,6 +11,15 @@ services:
   #     STAGE: 'local'
   #   volumes:
   #   - ./docker/org-chimata-ssl-certs:/var/lib/https-portal
+  
+  ngrok:
+    image: wernight/ngrok:latest
+    ports:
+      - ${WEB_PORT:-4040}:4040
+    environment:
+      NGROK_AUTH: 2JX1sMBqVveF0qxO6FOZ6xJbBgY_74cnRvLFMZk9kUi7fuHGQ
+      NGROK_PROTOCOL: http
+      NGROK_PORT: web:8000
 
   web:
     image: nginx:latest
@@ -35,8 +44,8 @@ services:
     ports: 
       - 3306:3306
     environment:
-        - MYSQL_DATABASE=mikanyama
-        - MYSQL_ROOT_PASSWORD=root
+        - MYSQL_DATABASE=$MYSQL_DATABASE
+        - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
     volumes:
       - mysql_data:/var/lib/mysql
 

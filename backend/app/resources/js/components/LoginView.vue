@@ -24,9 +24,12 @@ onBeforeMount(async () => {
 const login = async () => {
   try {
     await http.get('/sanctum/csrf-cookie');
-    await http.post('/api/login', { name: name.value });
-    // router.push('/');
-    location.href = '/';
+    // await http.post('/api/login', { name: name.value });
+    const response = await http.get('/api/login/line/redirect');
+    if (response.status == 200) {
+      location.href = response.data.url;
+      // location.href = response.data.url + '&bot_prompt=aggressive';
+    }
   } catch (e) {
     console.log(e);
     validate_message.value = 'ログインできませんでした';
@@ -80,19 +83,30 @@ body {
 <template>
     <main class="background mt-4" v-cloak>
       <form class="text-center form-signin">
-        <img class="mb-4 mt-3" :src="'/images/memo.svg'" alt="" width="72" height="57">
+        <div class="mb-3 mt-5">
+          <img class="mb-4" :src="'/images/memo.svg'" alt="" width="72" height="57">
+        </div>
         <!-- <h1 class="mb-3 fw-normal text-secondary">なにかキャッチコピー的な</h1> -->
         
     
-        <div class="form-floating mb-3">
+        <!-- <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInput" placeholder="" v-model="name">
           <label for="floatingInput">ユーザー名（アルファベットまたは数字）</label>
-        </div>
+        </div> -->
+
+
         <!-- <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
           <label class="form-check-label" for="flexCheckChecked">ログイン状態を保持する</label>
         </div> -->
-        <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">ログイン</button>
+        <div class="mb-3">
+          <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">
+            <h2>
+              <i class="bi bi-line"></i>
+              LINEでログイン
+            </h2>
+          </button>
+        </div>
         <h2 class="text-secondary bt-5">{{ validate_message }}</h2>
       </form>
     </main>
