@@ -100,11 +100,13 @@ body {
           <label class="form-check-label" for="flexCheckChecked">ログイン状態を保持する</label>
         </div> -->
         <div class="mb-3">
-          <button class="btn btn-lg btn-dark" type="button" @click="login()">
-            <h3>
+          <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">
+            <h2>
               <i class="bi bi-line"></i>
-              LINEでログイン
-            </h3>
+              <span class="fs-5">
+                LINEでログイン
+              </span>
+            </h2>
           </button>
         </div>
         <h2 class="text-secondary bt-5">{{ validate_message }}</h2>
