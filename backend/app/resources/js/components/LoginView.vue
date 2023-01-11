@@ -100,7 +100,7 @@ body {
           <label class="form-check-label" for="flexCheckChecked">ログイン状態を保持する</label>
         </div> -->
         <div class="mb-3">
-          <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">
+          <button class="btn btn-lg btn-dark" type="button" @click="login()">
             <h3>
               <i class="bi bi-line"></i>
               LINEでログイン
