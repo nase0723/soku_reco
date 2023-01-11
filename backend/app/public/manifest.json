@@ -1,7 +1,6 @@
 {
   "name": "SOKU-RECO",
   "short_name": "SOKU-RECO",
-  "start_url": "?utm_source=home_screen&utm_medium=pwa",
   "display": "standalone",
   "theme_color": "#0971ac",
   "icons": [{
