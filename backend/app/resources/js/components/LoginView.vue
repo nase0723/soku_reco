@@ -101,10 +101,10 @@ body {
         </div> -->
         <div class="mb-3">
           <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">
-            <h2>
+            <h3>
               <i class="bi bi-line"></i>
               LINEでログイン
-            </h2>
+            </h3>
           </button>
         </div>
         <h2 class="text-secondary bt-5">{{ validate_message }}</h2>
