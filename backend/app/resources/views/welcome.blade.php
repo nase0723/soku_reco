@@ -7,7 +7,6 @@
 
         <title>SOKU-RECO</title>
 
-        {{-- <link rel="manifest" href="/manifest.json"> --}}
         <link rel="manifest" href="/manifest.json" crossorigin="use-credentials">
         <script>
             window.addEventListener('load', function () {
