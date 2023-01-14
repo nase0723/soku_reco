@@ -61,7 +61,7 @@ const getMatter = async () => {
                 <h3><label for="sns" class="text-secondary">SNS</label></h3>
             </div>
             <div class="col-9">
-                <input type="text" class="form-control" id="sns" :value="matter && {1 : 'ライン', 2 : 'インスタ'}[matter.sns]" disabled>
+                <input type="text" class="form-control" id="sns" :value="matter && {1 : 'ライン', 2 : 'インスタ', 3 : 'その他'}[matter.sns]" disabled>
             </div>
         </div>
         <div class="row mb-3">
