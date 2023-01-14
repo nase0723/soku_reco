@@ -180,6 +180,17 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
                                 </datalist>
                             </div>
                         </div>
+                        <div class="row mb-3">
+                            <div class="col-3">
+                                <label for="sns" class="col-form-label">SNS種類</label>
+                            </div>
+                            <div class="col-9">
+                                <select v-model="newMatterDetails.sns" class="form-select" id="sns">
+                                    <option value="1">ライン</option>
+                                    <option value="2">インスタ</option>
+                                </select>
+                            </div>
+                        </div>
                         <br>
                         <div class="alert alert-danger" role="alert" v-for="error in errors">{{ error[0] }}</div>
                         <div class="row mt-3">

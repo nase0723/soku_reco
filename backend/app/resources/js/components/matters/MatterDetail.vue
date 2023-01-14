@@ -58,6 +58,14 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
+                <h3><label for="sns" class="text-secondary">SNS種類</label></h3>
+            </div>
+            <div class="col-9">
+                <input type="text" class="form-control" id="sns" :value="matter && matter.sns" disabled>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="col-3">
                 <h3><label for="street_value" class="text-secondary">スト値</label></h3>
             </div>
             <div class="col-9">

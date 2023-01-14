@@ -94,6 +94,17 @@ const DeleteMatter = async () => {
             </div>
             <div class="row mb-3">
                 <div class="col-3">
+                    <h3><label for="sns" class="text-secondary">SNS種類</label></h3>
+                </div>
+                <div class="col-9">
+                    <select v-model="matter.sns" class="form-select" id="sns">
+                        <option value="1">ライン</option>
+                        <option value="2">インスタ</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-3">
                     <h3><label for="street_value" class="text-secondary">スト値</label></h3>
                 </div>
                 <div class="col-9">

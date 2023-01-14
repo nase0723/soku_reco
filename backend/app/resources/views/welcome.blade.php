@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#db5945">
+        <meta name="apple-mobile-web-app-capable" content="yes">
 
         <title>SOKU-RECO</title>
 
