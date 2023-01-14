@@ -165,7 +165,9 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
                     <form @submit.prevent="createMatter">
                         <div class="row mb-3">
                             <div class="col-3">
-                                <label for="inputName" class="col-form-label">名前</label>
+                                <label for="inputName" class="col-form-label">名前
+                                    <!-- <br><span class="text-danger">(必須)</span> -->
+                                </label>
                             </div>
                             <div class="col-9">
                                 <input type="text" v-model="newMatter.name" class="form-control" id="inputName">
