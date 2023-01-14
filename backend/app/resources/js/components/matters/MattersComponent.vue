@@ -185,7 +185,7 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
                                 <label for="sns" class="col-form-label">SNS種類</label>
                             </div>
                             <div class="col-9">
-                                <select v-model="newMatterDetails.sns" class="form-select" id="sns">
+                                <select v-model="newMatter.sns" class="form-select" id="sns">
                                     <option value="1">ライン</option>
                                     <option value="2">インスタ</option>
                                 </select>
