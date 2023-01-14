@@ -8,9 +8,8 @@ const http = props.http
 const router = useRouter();
 const matters = ref();
 const fiveMatters = ref();
-const newMatter = ref({
-    sns : 1,
-});
+const newMatter = ref({});
+console.log(newMatter.value);
 const newMatterDetails = ref({});
 const createdMatter = ref();
 const modal = ref({});
@@ -31,7 +30,9 @@ onBeforeMount(() => {
 const redirectToLoginPage = () => router.push({name : 'login'});
 
 const initModal = () => {
-    newMatter.value = {}
+    newMatter.value = {
+        sns : 1,
+    }
     errors.value = {};
     modal.value.status = 1;
 };
@@ -184,7 +185,7 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
                         </div>
                         <div class="row mb-3">
                             <div class="col-3">
-                                <label for="sns" class="col-form-label">SNS種類</label>
+                                <label for="sns" class="col-form-label">SNS</label>
                             </div>
                             <div class="col-9">
                                 <select v-model="newMatter.sns" class="form-select" id="sns">

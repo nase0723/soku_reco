@@ -58,13 +58,14 @@ const getMatter = async () => {
         </div>
         <div class="row mb-3">
             <div class="col-3">
-                <h3><label for="sns" class="text-secondary">SNS種類</label></h3>
+                <h3><label for="sns" class="text-secondary">SNS</label></h3>
             </div>
             <div class="col-9">
-                <select :value="matter && matter.sns" class="form-select" id="sns" disabled>
+                <!-- <select :value="matter && matter.sns" class="form-select" id="sns" disabled>
                         <option value="1">ライン</option>
                         <option value="2">インスタ</option>
-                </select>
+                </select> -->
+                <input type="text" class="form-control" id="sns" :value="matter && {1 : 'ライン', 2 : 'インスタ'}[matter.sns]" disabled>
             </div>
         </div>
         <div class="row mb-3">
