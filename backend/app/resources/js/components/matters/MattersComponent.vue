@@ -8,7 +8,9 @@ const http = props.http
 const router = useRouter();
 const matters = ref();
 const fiveMatters = ref();
-const newMatter = ref({});
+const newMatter = ref({
+    sns : 1,
+});
 const newMatterDetails = ref({});
 const createdMatter = ref();
 const modal = ref({});
@@ -186,7 +188,7 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
                             </div>
                             <div class="col-9">
                                 <select v-model="newMatter.sns" class="form-select" id="sns">
-                                    <option value="1" selected>ライン</option>
+                                    <option value="1">ライン</option>
                                     <option value="2">インスタ</option>
                                 </select>
                             </div>
