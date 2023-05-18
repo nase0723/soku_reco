@@ -3,8 +3,8 @@ import axios from "axios";
 import { useRouter } from 'vue-router';
 import { ref, onBeforeMount } from "vue";
 
-const router = useRouter();
-const user = ref();
+// const router = useRouter();
+// const user = ref();
 const name = ref();
 const validate_message = ref();
 
@@ -14,12 +14,12 @@ const props = defineProps({
 })
 const http = props.http
 
-onBeforeMount(async () => {
-  let checked = await http.get('/api/check');
-  if (checked.data) {
-    router.push('/');
-  } 
-});
+// onBeforeMount(async () => {
+//   let checked = await http.get('/api/check');
+//   if (checked.data) {
+//     router.push('/');
+//   } 
+// });
 
 const login = async () => {
   try {
@@ -31,7 +31,7 @@ const login = async () => {
       // location.href = response.data.url + '&bot_prompt=aggressive';
     }
   } catch (e) {
-    console.log(e);
+    // console.log(e);
     validate_message.value = 'ログインできませんでした';
   }
 }
@@ -79,28 +79,31 @@ body {
   border-top-right-radius: 0;
 }
 
+.catchphrase {
+  font-family: sans-serif;
+}
+
 </style>
 <template>
     <main class="background mt-4" v-cloak>
       <form class="text-center form-signin">
+        <h1 class="mt-5 fw-normal text-white catchphrase">準即できない番ゲは<br>ただの番ゲだ</h1>
         <div class="mb-3 mt-5">
           <img class="mb-4" :src="'/images/memo.svg'" alt="" width="72" height="57">
         </div>
-        <!-- <h1 class="mb-3 fw-normal text-secondary">なにかキャッチコピー的な</h1> -->
         
-    
         <!-- <div class="form-floating mb-3">
           <input type="text" class="form-control" id="floatingInput" placeholder="" v-model="name">
           <label for="floatingInput">ユーザー名（アルファベットまたは数字）</label>
         </div> -->
 
-
         <!-- <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
           <label class="form-check-label" for="flexCheckChecked">ログイン状態を保持する</label>
         </div> -->
+        
         <div class="mb-3">
-          <button class="w-75 btn btn-lg btn-dark" type="button" @click="login()">
+          <button class="w-75 btn btn-lg btn-success" type="button" @click="login()">
             <h2>
               <i class="bi bi-line"></i>
               <span class="fs-5">

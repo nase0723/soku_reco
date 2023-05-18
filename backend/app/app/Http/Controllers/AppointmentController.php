@@ -48,6 +48,8 @@ class AppointmentController extends Controller
                 ->with('matter')
                 ->get();
                 array_push($weekRow, [
+                    'year' => $firstOfCalendar->format('Y'),
+                    'month' => $firstOfCalendar->format('m'),
                     'date' => $firstOfCalendar->format('j'),
                     'dayOfWeek' => $firstOfCalendar->format('w'),
                     'appointments' => $appointments,

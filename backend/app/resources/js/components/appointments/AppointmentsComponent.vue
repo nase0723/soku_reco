@@ -73,13 +73,13 @@ const createAppointment = async () => {
 
 <template>
 
-    <div class="container mb-3 mt-5">
+    <div class="container mb-3 mt-3">
         <div class="row justify-content-between">
             <div class="col-9">
-                <h3 class="text-secondary">アポ一覧</h3>
+                <!-- <h3 class="text-secondary">アポ一覧</h3> -->
                 <!-- <router-link :to="{name: 'calendar'}"  class="link-danger text-decoration-none">カレンダー表示</router-link> -->
                 <div class="mt-4">
-                    <router-link :to="{name: 'calendar'}" class="btn btn-danger"><i class="bi bi-calendar"></i> カレンダー</router-link>
+                    <router-link :to="{name: 'calendar'}" class="btn btn-danger"><i class="bi bi-calendar-check"></i> カレンダー</router-link>
                 </div>
             </div>
             <div class="col-3 mb-4">

@@ -95,14 +95,14 @@ const search = async () => router.push({name: 'SearchResults', params: {keyword:
 </script>
 
 <template>
-    <div class="container mb-4 mt-5">
+    <div class="container mb-4 mt-3">
         <div class="row justify-content-between">
             <div class="col-9">
                 <!-- <form class="d-flex" role="search" @submit.prevent="search">
                     <input class="form-control me-2" type="search" placeholder="案件検索" aria-label="検索" v-model="keyword">
                     <button class="btn btn-dark flex-shrink-0" type="submit">検索</button>
                 </form> -->
-                <h3 class="text-secondary">案件一覧</h3>
+                <!-- <h3 class="text-secondary">案件一覧</h3> -->
                 <div class="mt-4 d-flex">
                     <!-- <div class="w-25">
                         <h2>

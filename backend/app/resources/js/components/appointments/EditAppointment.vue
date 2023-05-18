@@ -65,7 +65,7 @@ const DeleteAppointment = async () => {
 }
 </script>
 <template>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>

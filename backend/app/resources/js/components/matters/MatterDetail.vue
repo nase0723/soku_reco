@@ -1,6 +1,6 @@
 <script setup>
 import { useRouter } from 'vue-router';
-import { ref, onBeforeMount } from "vue";
+import { ref } from "vue";
 const props = defineProps({
     http: Function,
     id: String,
@@ -9,10 +9,6 @@ const http = props.http
 const id = props.id
 const router = useRouter();
 const matter = ref({});
-
-onBeforeMount(() => {
-    getMatter();
-});
 
 const redirectToLoginPage = () => router.push({name : 'login'});
 
@@ -30,10 +26,25 @@ const getMatter = async () => {
     }
 }
 
+const DeleteMatter = async () => {
+    try {
+        const response = await http.delete('/api/matters/' + id);
+        if (response.status == 200) {
+            router.push({name: 'matters'});
+        }
+    } catch (e) {
+        if (e.response.status == 401) {
+            redirectToLoginPage();
+        }
+        console.log(e);
+    }
+}
+
+getMatter();
 </script>
 
 <template>
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row d-flex mb-3">
             <div class="col-9">
                 <h1>
@@ -43,8 +54,11 @@ const getMatter = async () => {
                 </h1>
             </div>
             <div class="col-3 d-flex justify-content-end">
-                <button class="btn btn-dark btn-lg" @click="router.push({name: 'EditMatter', params: {id : id}})">
+                <button class="btn btn-dark btn-lg mr-2" @click="router.push({name: 'EditMatter', params: {id : id}})">
                     <i class="bi bi-pencil"></i>
+                </button>
+                <button class="btn btn-dark btn-lg" @click="DeleteMatter">
+                    <i class="bi bi-trash"></i>
                 </button>
             </div>
         </div>
