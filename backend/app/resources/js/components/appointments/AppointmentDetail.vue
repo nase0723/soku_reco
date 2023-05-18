@@ -45,6 +45,11 @@ const getAppointment = async () => {
                     <span class="badge bg-dark">
                         {{ appointment.matter && appointment.matter.name }}
                     </span>
+                    <span class="badge bg-dark ml-1">
+                        <router-link :to="{ name: 'MatterDetail', params: { id: String(appointment.matter.id) } }" class="text-decoration-none text-white">
+                             <i class="bi bi-search"></i>
+                        </router-link>
+                    </span>
                 </h1>
             </div>
             <div class="col-3 d-flex justify-content-end">

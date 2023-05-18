@@ -100,7 +100,7 @@ const createAppointment = async () => {
         </thead>
         <tbody>
             <template v-for="appointment in appointments">
-                <tr :class="{'table-secondary': (new Date()) < (new Date(appointment.appointment_date.replace(/-/g, '/'))) }">
+                <tr :class="{'table-secondary': (new Date(appointment.appointment_date.replace(/-/g, '/'))) < (new Date()) }">
                     <td class="text-center">{{ appointment.matter.name }}</td>
                     <td class="text-center">
                         {{ appointment.appointment_date.substr(0, 10).replace(/-/g, '/').replace(/\/0/g, '/').replace((new Date().getFullYear()) + '/', '') }}
