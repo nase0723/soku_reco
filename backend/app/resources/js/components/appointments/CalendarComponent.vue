@@ -100,7 +100,7 @@ getMatters({ column: 'created_at', type: 'desc' });
                                 {{ day.date }}
                             </a>
                         </span>
-                        <span v-for="appointment in day.appointments" style="font-size: 23px;" >
+                        <span v-for="appointment in day.appointments" style="font-size: 12px;" >
                             <br>
                             <router-link :to="{name : 'AppointmentDetail', params: { id: String(appointment.id) } }" class="text-decoration-none">
                                 {{ appointment.matter.name }}
