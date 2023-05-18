@@ -10,10 +10,12 @@ const router = useRouter();
 const user = ref({});
 const userName = ref();
 const keyword = ref();
+const loggedIn = ref(false);
 
 onBeforeMount(async () => {
     const response = await axios.get('/api/check');
     if (response.data) {
+        loggedIn.value = true;
         getUser();
     }
 });
@@ -101,26 +103,15 @@ const CloseNavbar = () => document.getElementById('btnCloseNavbar').click();
         </nav>
     </header>
     <br>
-    <ul class="nav nav-tabs mt-5">
-  <li class="nav-item">
-    <!-- <a class="nav-link active" aria-current="page" href="#">Active</a> -->
-    <router-link :to="{name: 'matters'}" class="nav-link" exact-active-class="active">案件一覧</router-link>
-  </li>
-  <!-- <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dropdown</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="#">Action</a></li>
-      <li><a class="dropdown-item" href="#">Another action</a></li>
-      <li><a class="dropdown-item" href="#">Something else here</a></li>
-      <li><hr class="dropdown-divider"></li>
-      <li><a class="dropdown-item" href="#">Separated link</a></li>
+    <ul class="nav nav-tabs mt-5" v-if="loggedIn">
+        <li class="nav-item">
+            <router-link :to="{name: 'matters'}" class="nav-link" exact-active-class="active">案件一覧</router-link>
+        </li>
+        <li class="nav-item">
+            <router-link :to="{name: 'appointments'}" class="nav-link" exact-active-class="active">アポ一覧</router-link>
+        </li>
+        <li class="nav-item">
+            <router-link :to="{name: 'calendar'}" class="nav-link" exact-active-class="active">カレンダー</router-link>
+        </li>
     </ul>
-  </li> -->
-  <li class="nav-item">
-    <router-link :to="{name: 'appointments'}" class="nav-link" exact-active-class="active">アポ一覧</router-link>
-  </li>
-  <li class="nav-item">
-    <router-link :to="{name: 'calendar'}" class="nav-link" exact-active-class="active">カレンダー</router-link>
-  </li>
-</ul>
 </template>

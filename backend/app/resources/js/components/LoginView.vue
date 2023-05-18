@@ -87,7 +87,7 @@ body {
 <template>
     <main class="background mt-4" v-cloak>
       <form class="text-center form-signin">
-        <h1 class="mt-5 fw-normal text-white catchphrase">準即できない番ゲは<br>ただの番ゲだ</h1>
+        <!-- <h1 class="mt-5 fw-normal text-white catchphrase">クズを極めよう</h1> -->
         <div class="mb-3 mt-5">
           <img class="mb-4" :src="'/images/memo.svg'" alt="" width="72" height="57">
         </div>
