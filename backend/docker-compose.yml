@@ -7,8 +7,8 @@ services:
       - '443:443'
     restart: always
     environment:
-      DOMAINS: "${DOMAINS} -> http://web:8000"
-      STAGE: "{$STAGE}"
+      DOMAINS: '${DOMAINS} -> http://web:8000'
+      STAGE: $STAGE
     volumes:
     - ./docker/org-chimata-ssl-certs:/var/lib/https-portal
   
