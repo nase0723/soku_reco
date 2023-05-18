@@ -1,25 +1,25 @@
 version: '3'
 services:
-  # https-portal:
-  #   image: steveltn/https-portal:1
-  #   ports:
-  #     - '80:80'
-  #     - '443:443'
-  #   restart: always
-  #   environment:
-  #     DOMAINS: 'localhost -> http://web:8000'
-  #     STAGE: 'local'
-  #   volumes:
-  #   - ./docker/org-chimata-ssl-certs:/var/lib/https-portal
-  
-  ngrok:
-    image: wernight/ngrok:latest
+  https-portal:
+    image: steveltn/https-portal:1
     ports:
-      - ${WEB_PORT:-4040}:4040
+      - '80:80'
+      - '443:443'
+    restart: always
     environment:
-      NGROK_AUTH: 2JX1sMBqVveF0qxO6FOZ6xJbBgY_74cnRvLFMZk9kUi7fuHGQ
-      NGROK_PROTOCOL: http
-      NGROK_PORT: web:8000
+      DOMAINS: "${DOMAINS} -> http://web:8000"
+      STAGE: "{$STAGE}"
+    volumes:
+    - ./docker/org-chimata-ssl-certs:/var/lib/https-portal
+  
+  # ngrok:
+  #   image: wernight/ngrok:latest
+  #   ports:
+  #     - ${WEB_PORT:-4040}:4040
+  #   environment:
+  #     NGROK_AUTH: 2JX1sMBqVveF0qxO6FOZ6xJbBgY_74cnRvLFMZk9kUi7fuHGQ
+  #     NGROK_PROTOCOL: http
+  #     NGROK_PORT: web:8000
 
   web:
     image: nginx:latest
